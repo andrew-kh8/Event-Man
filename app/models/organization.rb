@@ -5,5 +5,7 @@ class Organization < ApplicationRecord
 
   mount_uploader :logo, LogoUploader
 
+  has_many :events, dependent: :destroy_async
+
   validates :email, :name, presence: true
 end
