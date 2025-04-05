@@ -10,7 +10,7 @@
 # You can set any pagy variable as a Pagy::DEFAULT. They can also be overridden per instance by just passing them to
 # Pagy.new|Pagy::Countless.new|Pagy::Calendar::*.new or any of the #pagy* controller methods
 # Here are the few that make more sense as DEFAULTs:
-# Pagy::DEFAULT[:limit]       = 20                    # default
+Pagy::DEFAULT[:limit]       = 18                    # default
 # Pagy::DEFAULT[:size]        = 7                     # default
 # Pagy::DEFAULT[:ends]        = true                  # default
 # Pagy::DEFAULT[:page_param]  = :page                 # default
@@ -111,7 +111,6 @@
 # uncomment if you are going to use Searchkick.pagy_search
 # Searchkick.extend Pagy::Searchkick
 
-
 # Frontend Extras
 
 # Bootstrap extra: Add nav, nav_js and combo_nav_js helpers and templates for Bootstrap pagination
@@ -152,7 +151,7 @@
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/docs/extras/overflow
 # require 'pagy/extras/overflow'
-# Pagy::DEFAULT[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
+Pagy::DEFAULT[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
 
 # Trim extra: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/docs/extras/trim

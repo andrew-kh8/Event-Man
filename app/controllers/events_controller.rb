@@ -1,23 +1,18 @@
 class EventsController < ApplicationController
   before_action :set_organization
 
-  # GET /events
-  def index
-    @events = Event.all
+  def show
+    @event = @organization.events.find(params[:id])
   end
 
-  # GET /events/1
-  def show; end
-
-  # GET /events/new
   def new
     @event = @organization.events.new
   end
 
-  # GET /events/1/edit
-  def edit; end
+  def edit
+    @event = @organization.events.find(params[:id])
+  end
 
-  # POST /events
   def create
     @event = @organization.events.new(event_params)
 
@@ -28,10 +23,11 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1
   def update
+    @event = @organization.events.find(params[:id])
     if @event.update(event_params)
-      redirect_to @event, notice: 'Event was successfully updated.', status: :see_other
+      redirect_to organization_event_path(@organization, @event), notice: 'Event was successfully updated.',
+                                                                  status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

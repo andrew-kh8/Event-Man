@@ -1,0 +1,39 @@
+<% content_for :title, @event.name %>
+
+<div class="w-full">
+  <section class=" bg-blue-500ray-50">
+    <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
+
+      <div class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24">
+
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
+          <div class="grid grid-cols-2 gap-20">
+            <div class="max-w-xl mx-auto text-center">
+
+              <div class="px-4 py-1.5 mx-auto rounded-full">
+                <p class="text-4xl font-semibold tracking-widest text-g uppercase"><%= @event.name %></p>
+                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed text-gray-600 group-hover:text-white"%>
+              </div>
+
+              <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
+                <%= dates(@event) %>
+              </p>
+
+              <p class="my-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
+                <%= @event.description %>
+              </p>
+
+              <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+            </div>
+
+            <div>
+              <%= image_tag @event.image_url %>
+            </div>
+          </div>
+          
+          <div class="max-w-xl mx-auto my-14 text-center">
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

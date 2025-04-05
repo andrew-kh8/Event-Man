@@ -1,11 +1,10 @@
-<% content_for :title, "New event" %>
+<% content_for :title, "Edit #{@event.name}" %>
 
 <div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New event</h1>
 
   <div class="h-full w-full">
 
-    <%= form_with(model: @event, class: "flex h-full items-center contents p-5", url: organization_events_path(@organization)) do |form| %>
+    <%= form_with(model: @event, class: "flex h-full items-center contents p-5", url: organization_event_path(@organization, @event)) do |form| %>
       <% if @event.errors.any? %>
         <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
           <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -52,8 +51,8 @@
           </div>
 
           <div class="btn mt-2 w-[100%] bg-transparent flex items-center">
-            <%= form.submit "Создать событие", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
-            <%= link_to "Назад", organization_path(@organization), class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+            <%= form.submit "Обновить событие", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+            <%= link_to "Назад", organization_event_path(@organization, @event), class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
           </div>
         </div>
       </div>
