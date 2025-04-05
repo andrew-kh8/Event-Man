@@ -1,0 +1,46 @@
+<% content_for :title,"Организации" %>
+
+<div class="w-full">
+  <section class=" bg-blue-500ray-50">
+    <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
+
+      <div class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
+          <div class="max-w-xl mx-auto text-center">
+            <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
+              <p class="text-4xl font-semibold tracking-widest text-g uppercase">Организации</p>
+            </div>
+            <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
+              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+              amet sint. Velit officia consequat duis enim velit mollit..
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
+            <% @organizations.each do |organization| %>
+
+              <%= link_to organization_path(organization), class: "transition-all duration-1000 bg-white hover:bg-blue-500 hover:shadow-xl m-2 p-4 relative z-40 group" do %>
+
+                <div class="py-2 px-9 relative">
+
+                  <%= image_tag organization.logo_url %>
+
+                  <h3 class="mt-8 text-lg font-semibold text-black group-hover:text-white">
+                    <%= organization.name %>
+                  </h3>
+
+                  <p class="mt-4 text-base text-gray-600 group-hover:text-white">
+                    <%= organization.description %>
+                  </p>
+                </div>
+              <%end%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%# Render a view helper in your views (skipping nav links for empty pages) %>
+    <%= pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>

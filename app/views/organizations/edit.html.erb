@@ -1,0 +1,47 @@
+<% content_for :title, "Edit #{@organization.name}" %>
+
+<div class="h-full w-full">
+  <%= form_with(model: @organization, class: "flex h-full items-center contents p-5") do |form| %>
+    <% if @organization.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+        <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+        <ul class="list-disc ml-6">
+          <% @organization.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="bg-stone-100 sm:w-[80%] w-[90%] mx-auto p-6">
+        <form class="p-5 mt-5">
+            <div class="initials flex md:flex-row flex-col justify-evenly">
+              <%= form.label :name, class: "text-xl md:mb-0 mb-1" %>
+              <%= form.text_field :name, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl", {"border-gray-400 focus:outline-blue-600": @organization.errors[:name].none?, "border-red-400 focus:outline-red-600": @organization.errors[:name].any?}] %>
+
+              <%= form.label :activity_field, class: "text-xl md:mb-0 mb-1" %>
+              <%= form.text_field :activity_field, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl", {"border-gray-400 focus:outline-blue-600": @organization.errors[:activity_field].none?, "border-red-400 focus:outline-red-600": @organization.errors[:activity_field].any?}] %>
+            </div>
+
+            <div class="md:p-5 p-1 sm:mt-1 mt-1">
+                <div class="mt-5">
+                    <%= form.label :description, class: "text-xl" %>
+                    <%= form.textarea :description, rows: 4, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @organization.errors[:description].none?, "border-red-400 focus:outline-red-600": @organization.errors[:description].any?}] %>
+                </div>
+
+                <div class="mt-5">
+                    <%= form.label :logo, class: "text-xl" %>
+                    <%= form.file_field :logo, accept: 'image/png,image/gif,image/jpeg', class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @organization.errors[:description].none?, "border-red-400 focus:outline-red-600": @organization.errors[:description].any?}] %>
+                </div>              
+            </div>
+
+            <div class="btn mt-2 w-[100%] bg-transparent flex items-center">
+              <%= form.submit "Обновить", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+              <%= link_to "Назад", organization_path(@organization), class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+              <%= link_to "Удалить", @organization, class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-red-800 text-white hover:text-white hover:bg-red-950 hover:shadow-xl", data: { turbo_confirm: "Вы точно хотите навсегда удалить организацию #{@organization.name} ?", turbo_method: :delete } %>
+            </div>
+        </form>
+    </div>
+  <% end %>
+</div>

@@ -35,3 +35,9 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# some vscode things
+.vscode
+
+# uploads for carrierwave
+/public/uploads
