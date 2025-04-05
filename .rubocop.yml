@@ -1,7 +1,17 @@
 AllCops:
   TargetRailsVersion: 8.0.1
+  Documentation:
+    Enabled: false
+  Exclude:
+    - db/**/*
+    - config/**/*
+    - bin/*
+    - test/**/*
 
 plugins: rubocop-rails
 
 Style/Documentation:
-  Enable: false
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

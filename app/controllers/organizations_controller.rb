@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   include Pagy::Backend
 
-  before_action :set_organization, only: %i[ show edit update destroy ]
+  before_action :set_organization, only: %i[show edit update destroy]
 
   # GET /organizations
   def index
@@ -9,8 +9,7 @@ class OrganizationsController < ApplicationController
   end
 
   # GET /organizations/1
-  def show
-  end
+  def show; end
 
   # GET /organizations/new
   def new
@@ -18,15 +17,14 @@ class OrganizationsController < ApplicationController
   end
 
   # GET /organizations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
 
     if @organization.save
-      redirect_to @organization, notice: "Organization was successfully created."
+      redirect_to @organization, notice: 'Organization was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,7 +33,7 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   def update
     if @organization.update(organization_params)
-      redirect_to @organization, notice: "Organization was successfully updated.", status: :see_other
+      redirect_to @organization, notice: 'Organization was successfully updated.', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -44,17 +42,18 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   def destroy
     @organization.destroy!
-    redirect_to organizations_path, notice: "Organization was successfully destroyed.", status: :see_other
+    redirect_to organizations_path, notice: 'Organization was successfully destroyed.', status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_organization
-      @organization = Organization.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def organization_params
-      params.expect(organization: [ :name, :description, :activity_field ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_organization
+    @organization = Organization.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def organization_params
+    params.expect(organization: %i[name description activity_field])
+  end
 end
