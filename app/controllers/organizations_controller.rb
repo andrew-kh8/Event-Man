@@ -19,7 +19,9 @@ class OrganizationsController < ApplicationController
   end
 
   # GET /organizations/1/edit
-  def edit; end
+  def edit
+    @organization = Organization.find(params[:id])
+  end
 
   # POST /organizations
   def create
@@ -56,6 +58,6 @@ class OrganizationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def organization_params
-    params.expect(organization: %i[name description activity_field])
+    params.expect(organization: %i[name description activity_field logo])
   end
 end
