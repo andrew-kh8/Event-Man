@@ -2,6 +2,7 @@ class OrganizationsController < ApplicationController
   include Pagy::Backend
 
   before_action :set_organization, only: %i[show edit update destroy]
+  before_action :authenticate_organization!, only: %i[edit update destroy]
 
   # GET /organizations
   def index

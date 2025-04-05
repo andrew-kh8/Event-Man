@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "main_page#index"
 
+  devise_for :organizations
   resources :organizations
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
