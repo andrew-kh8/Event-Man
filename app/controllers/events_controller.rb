@@ -48,6 +48,9 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.expect(event: %i[name description image start_date end_date])
+    data = params.expect(event: %i[name description image start_date end_date online])
+    location = RGeo::Cartesian.factory(srid: Event::SRID).point(*params[:event][:location].split.reverse)
+
+    data.merge({ location: })
   end
 end

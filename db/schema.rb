@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_05_155040) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_165851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -24,6 +24,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_155040) do
     t.bigint "organization_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.geometry "location", limit: {:srid=>4326, :type=>"st_point"}
+    t.boolean "online", default: false, null: false
     t.index ["organization_id"], name: "index_events_on_organization_id"
   end
 
@@ -41,13 +43,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_155040) do
     t.datetime "remember_created_at"
     t.index ["email"], name: "index_organizations_on_email", unique: true
     t.index ["reset_password_token"], name: "index_organizations_on_reset_password_token", unique: true
-  end
-
-  create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
-    t.string "auth_name", limit: 256
-    t.integer "auth_srid"
-    t.string "srtext", limit: 2048
-    t.string "proj4text", limit: 2048
-    t.check_constraint "srid > 0 AND srid <= 998999", name: "spatial_ref_sys_srid_check"
   end
 end
