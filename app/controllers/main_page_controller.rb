@@ -1,5 +1,8 @@
 class MainPageController < ApplicationController
   include Pagy::Backend
+  include Authenticator
+
+  before_action :authenticate_user
 
   def index
     filtered_events = if params[:event_search].present?
