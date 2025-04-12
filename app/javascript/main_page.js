@@ -16,7 +16,20 @@ $(document).ready(function () {
     onEachFeature: function (feature, layer) {
 
       layer.bindPopup(
-        `<a href='/organizations/${feature.properties.organization_id}/events/${feature.id.split('.')[1]}' data-turbo='false'>Посмотреть мероприятие</a>`
+        `<a href='/organizations/${feature.properties.organization_id}/events/${
+          feature.id.split(".")[1]
+        }' data-turbo='false'>
+          <div class="py-2 px-9 relative">
+
+            <img src=${
+              feature.properties.image_url || "/images/event_template.jpg"
+            }>
+
+            <h3 class="mt-8 text-lg font-semibold text-black group-hover:text-white">
+              ${feature.properties.name}
+            </h3>
+          </div>
+        </a>`
       );
 
       layer

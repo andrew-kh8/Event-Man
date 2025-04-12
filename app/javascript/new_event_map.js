@@ -19,10 +19,6 @@ $(document).ready(function () {
     maxZoom: 23,
   }).addTo(map);
 
-  var event_layer = L.Geoserver.wfs("http://0.0.0.0:8080/geoserver/wfs", {
-    layers: "event_man:events",
-  });
-
   map.on("click", (event) => {
     $("#event_location").val([event.latlng.lng, event.latlng.lat].join(" "));
 
@@ -40,6 +36,5 @@ $(document).ready(function () {
     marker.setLatLng(newLatLng);
   });
 
-  event_layer.addTo(map);
   marker.addTo(map);
 });
