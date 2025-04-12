@@ -41,3 +41,6 @@
 
 # uploads for carrierwave
 /public/uploads
+
+# use procfile sample
+Procfile.dev
