@@ -1,0 +1,61 @@
+<% content_for :title, "Edit #{@event.name}" %>
+
+<div class="md:w-2/3 w-full">
+
+  <div class="h-full w-full">
+
+    <%= form_with(model: @event, class: "flex h-full items-center contents p-5", url: organization_event_path(@organization, @event)) do |form| %>
+      <% if @event.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+          <ul class="list-disc ml-6">
+            <% @event.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="bg-stone-100 sm:w-[80%] w-[90%] mx-auto p-6">
+        <div class="p-5 mt-5">
+          <div class="md:p-5 p-1 sm:mt-1 mt-1">
+            <div class="mt-5">
+                <%= form.label :name, class: "text-xl" %>
+                <%= form.text_field :name, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
+            </div>
+          </div>
+
+          <div class="md:p-5 p-1 initials flex md:flex-row flex-col justify-between">
+            <div class="mt-5">
+                <%= form.label :start_date, class: "text-xl" %>
+                <%= form.datetime_field :start_date, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
+            </div>
+
+            <div class="mt-5">
+                <%= form.label :end_date, class: "text-xl" %>
+                <%= form.datetime_field :end_date, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
+            </div>
+          </div>
+
+          <div class="md:p-5 p-1 sm:mt-1 mt-1">
+            <div class="mt-5">
+                <%= form.label :description, class: "text-xl" %>
+                <%= form.textarea :description, rows: 4, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
+            </div>
+
+            <div class="mt-5">
+                <%= form.label :image, class: "text-xl" %>
+                <%= form.file_field :image, accept: 'image/png,image/gif,image/jpeg', class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
+            </div>
+          </div>
+
+          <div class="btn mt-2 w-[100%] bg-transparent flex items-center">
+            <%= form.submit "Обновить событие", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+            <%= link_to "Назад", organization_event_path(@organization, @event), class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

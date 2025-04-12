@@ -1,5 +1,12 @@
 # README
 
+
+## Start
+
+copy Procfile.dev from Procfile.dev.sample and configure it. Then run
+
+`bin/dev`
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

@@ -15,7 +15,7 @@
     <% end %>
 
     <div class="bg-stone-100 sm:w-[80%] w-[90%] mx-auto p-6">
-        <form class="p-5 mt-5">
+        <div class="p-5 mt-5">
             <div class="initials flex md:flex-row flex-col justify-evenly">
               <%= form.label :name, class: "text-xl md:mb-0 mb-1" %>
               <%= form.text_field :name, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl", {"border-gray-400 focus:outline-blue-600": @organization.errors[:name].none?, "border-red-400 focus:outline-red-600": @organization.errors[:name].any?}] %>
@@ -41,7 +41,7 @@
               <%= link_to "Назад", organization_path(@organization), class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
               <%= link_to "Удалить", @organization, class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-red-800 text-white hover:text-white hover:bg-red-950 hover:shadow-xl", data: { turbo_confirm: "Вы точно хотите навсегда удалить организацию #{@organization.name} ?", turbo_method: :delete } %>
             </div>
-        </form>
+        </div>
     </div>
   <% end %>
 </div>
