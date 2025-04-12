@@ -1,24 +1,10 @@
+<%= form_with scope: :event_search, method: :get, url: root_path, class:"flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
+    <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+        <%= form.search_field :event_name, value: (params[:event_search].nil? ? nil : params[:event_search][:event_name]), placeholder: "Введите название", class: "focus:outline-none text-gray-700"%>
+    </div>
 
-<select class="px-4 py-2 mt-2 font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-    <option>Очно</option>
-    <option>Онлайн</option>
-</select>
-
-<select class="px-4 py-2 mt-2 font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-    <option>4 Passangers</option>
-    <option>3 Passangers</option>
-    <option>2 Passangers</option>
-</select>
-
-<select class="px-4 py-2 mt-2 font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-    <option>Economy</option>
-</select>
-
-<div class="px-4 py-2 mt-2 font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-    <input type="text" placeholder="Введите название" class="bg-gray-300 focus:outline-none text-gray-700"/>
-</div>
-
-<button class="border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline md:ml-4">
-    Search
-</button>
+    <button class="border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline md:ml-4">
+        Поиск
+    </button>
+<%end%>
 
