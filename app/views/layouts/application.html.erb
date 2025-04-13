@@ -56,6 +56,10 @@
       </div>
     </div>
 
+    <% if notice %>
+      <%== notification(notice) %>
+    <% end %>
+
     <main class="h-full flex">
       <div class="grow">
         <%= yield %>
