@@ -1,23 +1,22 @@
 <%= turbo_frame_tag "main_view" do %>
 
-  <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 my-4">
-    <div class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-      <div class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
-        <%= render "filters"%>
-        <%= link_to 'Открыть карту', map_path, data: { turbo_frame: "main_view" }, class:"md:ml-4 mx-4 border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
-      </div>
-    </div>
-  </div>
-
   <div class="w-full">
     <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
 
       <div class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
 
-        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
-          <div class="max-w-xl mx-auto text-center">
+          <div class="mx-auto text-center">
             <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
               <p class="text-4xl font-semibold tracking-widest text-g uppercase">Мероприятия</p>
+            </div>
+          </div>
+
+          <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 my-4">
+            <div class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+              <div class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+                <%= render "filters"%>
+                <%= link_to 'Открыть карту', map_path, data: { turbo_frame: "main_view" }, class:"md:ml-4 mx-4 border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+              </div>
             </div>
           </div>
 
@@ -41,7 +40,6 @@
               <%end%>
             <%end%>
           </div>
-        </div>
       </div>
 
       <div class="max-w-xl mx-auto text-center m-4">

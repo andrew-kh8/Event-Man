@@ -5,8 +5,8 @@ class MainPageController < ApplicationController
   before_action :authenticate_user
 
   def index
-    filtered_events = if params[:event_search].present?
-                        Event.where('name ILIKE ?', ['%', params[:event_search][:event_name], '%'].join)
+    filtered_events = if params[:event_name].present?
+                        Event.where('name ILIKE ?', ['%', params[:event_name], '%'].join)
                       else
                         Event.all
                       end

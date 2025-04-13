@@ -7,7 +7,17 @@ class PeopleController < ApplicationController
 
   # GET /people
   def index
-    @pagy, @people = pagy(Person.all)
+    people = if params[:friends].present?
+               Person.find(params[:friends]).friends
+             else
+               Person.all
+             end
+
+    if params[:person_name].present?
+      people = people.where("concat(first_name, ' ', last_name) ILIKE ?", ['%', params[:person_name], '%'].join)
+    end
+
+    @pagy, @people = pagy(people)
   end
 
   # GET /people/1
