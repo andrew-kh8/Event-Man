@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  include Pagy::Backend
   include Authenticator
 
   before_action :authenticate_user
@@ -6,7 +7,7 @@ class PeopleController < ApplicationController
 
   # GET /people
   def index
-    @people = Person.all
+    @pagy, @people = pagy(Person.all)
   end
 
   # GET /people/1
