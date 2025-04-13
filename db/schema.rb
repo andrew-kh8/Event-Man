@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_12_180327) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_120645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -27,6 +27,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_180327) do
     t.geometry "location", limit: {:srid=>4326, :type=>"st_point"}
     t.boolean "online", default: false, null: false
     t.index ["organization_id"], name: "index_events_on_organization_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.bigint "follower_id", null: false
+    t.bigint "not_approved_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_friendships_on_author_id"
+    t.index ["follower_id"], name: "index_friendships_on_follower_id"
+    t.index ["not_approved_id"], name: "index_friendships_on_not_approved_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -62,4 +73,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_12_180327) do
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "friendships", "people", column: "author_id"
+  add_foreign_key "friendships", "people", column: "follower_id"
+  add_foreign_key "friendships", "people", column: "not_approved_id"
 end

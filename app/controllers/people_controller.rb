@@ -12,6 +12,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1
   def show
+    @person = Person.includes(:followers, :following).find(params.expect(:id))
   end
 
   # GET /people/1/edit
