@@ -23,7 +23,19 @@
                 <%= @event.description %>
               </p>
 
-              <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+              <% if organization_signed_in? && current_organization == @organization %>
+                <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+              <%end%>
+
+              <% if person_signed_in? %>
+
+                <% if current_person.events.include?(@event) %>
+                  <%= render "participants/destroy_button" %>
+                <%else%>
+                  <%= render "participants/create_button" %>
+                <%end%>
+                  
+              <%end%>
             </div>
 
             <div>
