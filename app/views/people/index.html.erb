@@ -17,29 +17,37 @@
               <%= form.search_field :person_name, value: params[:person_name], placeholder: "Введите имя", class: "w-full focus:outline-none text-gray-700"%>
           </div>
 
+          <%= form.text_field :friends, value: params[:friends], hidden: true %>
+
           <button class="border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline md:ml-4">
               Поиск
           </button>
         <%end%>
+        
+        <% if @people.blank? %>
+          <div class="text-center font-bold text-xl mt-10">
+            Пользователи не найдены. Попробуйте перезагрузить страницу или поменять параметры поиска.
+          </div>
+        <% else %>
+          <div class="grid grid-cols-5 gap-8 mt-8">
+            <% @people.each do |person| %>
 
-        <div class="grid grid-cols-5 gap-8 mt-8">
-          <% @people.each do |person| %>
+              <%= link_to person_path(person), class: "py-4 rounded-xl flex flex-col items-center justify-center text-gray-800 hover:text-blue-600 bg-gray-100" do %>
+                <%= image_tag person.avatar_url, class:"w-32 rounded-full" %>
 
-            <%= link_to person_path(person), class: "py-4 rounded-xl flex flex-col items-center justify-center text-gray-800 hover:text-blue-600 bg-gray-100" do %>
-              <%= image_tag person.avatar_url, class:"w-32 rounded-full" %>
-
-              <h3 class="text-center font-bold text-sm mt-1">
-                <%= person.full_name %>
-              </h3>
+                <h3 class="text-center font-bold text-sm mt-1">
+                  <%= person.full_name %>
+                </h3>
+              <%end%>
             <%end%>
-          <%end%>
-        </div>
+          </div>
+        <%end%>
       </div>
     </div>
 
     <div class="max-w-xl mx-auto text-center m-4">
       <div class="inline-flex mx-auto rounded-full">
-        <%== pagy_nav(@pagy) %>
+        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
       </div>
     </div>
   </div>
