@@ -11,6 +11,16 @@
             <p class="text-4xl font-semibold tracking-widest text-g uppercase">Организации</p>
           </div>
         </div>
+        
+        <%= form_with method: :get, url: organizations_path, class:"mt-4 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
+          <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+              <%= form.search_field :organization_name, value: params[:organization_name], placeholder: "Введите название", class: "w-full focus:outline-none text-gray-700"%>
+          </div>
+
+          <button class="border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline md:ml-4">
+              Поиск
+          </button>
+        <%end%>
 
         <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
           <% @organizations.each do |organization| %>
@@ -37,7 +47,7 @@
 
     <div class="max-w-xl mx-auto text-center m-4">
       <div class="inline-flex mx-auto rounded-full">
-        <%== pagy_nav(@pagy) %>
+        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
       </div>
     </div>
   </div>
