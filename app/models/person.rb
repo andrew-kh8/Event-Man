@@ -8,6 +8,8 @@ class Person < ApplicationRecord
 
   has_many :followers, class_name: 'Friendship', foreign_key: 'author_id', inverse_of: :author, dependent: :destroy
   has_many :following, class_name: 'Friendship', foreign_key: 'follower_id', inverse_of: :follower, dependent: :destroy
+  has_many :participants, dependent: :destroy_async
+  has_many :events, through: :participants
 
   validates :first_name, presence: true
 
