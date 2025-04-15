@@ -30,8 +30,13 @@
         <% end %>
       </div>
 
+
       <div class="actions mb-4">
         <%= form.submit "Войти", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+      </div>
+
+      <div class="actions mb-4">
+        <%= link_to "Войти как пользователь", new_person_session_path, class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-gray-500 text-white hover:text-black hover:bg-white hover:shadow-xl" %>
       </div>
 
       <%= render "devise/shared/links" %>

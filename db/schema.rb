@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_07_165851) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_120645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -29,6 +29,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_165851) do
     t.index ["organization_id"], name: "index_events_on_organization_id"
   end
 
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.bigint "follower_id", null: false
+    t.bigint "not_approved_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_friendships_on_author_id"
+    t.index ["follower_id"], name: "index_friendships_on_follower_id"
+    t.index ["not_approved_id"], name: "index_friendships_on_not_approved_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -44,4 +55,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_165851) do
     t.index ["email"], name: "index_organizations_on_email", unique: true
     t.index ["reset_password_token"], name: "index_organizations_on_reset_password_token", unique: true
   end
+
+  create_table "people", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "avatar"
+    t.date "birthday"
+    t.text "description"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_people_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "friendships", "people", column: "author_id"
+  add_foreign_key "friendships", "people", column: "follower_id"
+  add_foreign_key "friendships", "people", column: "not_approved_id"
 end

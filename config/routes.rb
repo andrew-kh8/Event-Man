@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   root "main_page#index"
+  
   get "event_list" => "main_page#event_list"
   get "map" => "main_page#map"
-
+  
+  devise_for :people
   devise_for :organizations
+  
   resources :organizations, except: [:new, :create] do
     resources :events
   end
+
+  resources :people, except: [:new, :create]
+  resources :friendships, only: [:create, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

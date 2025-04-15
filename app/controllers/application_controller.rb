@@ -7,8 +7,10 @@ class ApplicationController < ActionController::Base
   def devise_parameter_sanitizer
     if resource_class == Organization
       OrganizationParams.new(Organization, :organization, params)
+    elsif resource_class == Person
+      PersonParams.new(Person, :person, params)
     else
-      super # Use the default one
+      raise ActionController::BadRequest, 'Unknown user type'
     end
   end
 end

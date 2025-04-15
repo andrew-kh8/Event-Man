@@ -6,7 +6,13 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @pagy, @organizations = pagy(Organization.all)
+    organizations = if params[:organization_name]
+                      Organization.where('name ILIKE ?', "%#{params[:organization_name]}%")
+                    else
+                      Organization.all
+                    end
+
+    @pagy, @organizations = pagy(organizations)
   end
 
   # GET /organizations/1
