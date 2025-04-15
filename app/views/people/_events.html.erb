@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "person_events" do %>
+
+    <a href="/people/<%=@person.id%>?page=<%=@pagy.page == 1 ? 1 : @pagy.page - 1%>" aria-label="Next">
+        <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+        </svg>
+    </a>
+
+    <div class="relative">
+        <div class="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+        <% @events.each do |event| %>
+            <!-- start::Timeline item -->
+            <div class="flex items-center w-full my-6 -ml-1.5">
+                <div class="w-1/12 z-10">
+                    <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                </div>
+                <div class="w-11/12">
+                    <%= link_to event.name, organization_event_path(event.organization, event), data: {turbo: false}, class:"text-sm"%>
+                    <p class="text-xs text-gray-500"><%= event.start_date%></p>
+                </div>
+            </div>
+            <!-- end::Timeline item -->
+        <%end%>
+    </div>
+
+    <a href="/people/<%=@person.id%>?page=<%=@pagy.page == @pagy.pages ? @pagy.page : @pagy.page + 1%>" aria-label="Next">
+        <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+        </svg>
+    </a>
+<%end%>

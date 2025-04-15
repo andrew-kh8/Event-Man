@@ -19,18 +19,20 @@
                 <%= @organization.description %>
               </p>
 
-              <%= link_to "Добавить мероприятие", new_organization_event_path(@organization), 
-                class: "border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              %>
-              
-              <%= link_to "Редактировать", edit_organization_path(@organization), 
-                class: "border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              %>
-              
-              <%= button_to 'Выйти', destroy_organization_session_path,
-                method: :delete,
-                class: "mt-4 border-2 border-gray-500 px-4 py-2 font-semibold bg-gray-300 rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              %>
+              <% if organization_signed_in? && current_organization == @organization %>
+                <%= link_to "Добавить мероприятие", new_organization_event_path(@organization), 
+                  class: "border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                %>
+                
+                <%= link_to "Редактировать", edit_organization_path(@organization), 
+                  class: "border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                %>
+                
+                <%= button_to 'Выйти', destroy_organization_session_path,
+                  method: :delete,
+                  class: "mt-4 border-2 border-gray-500 px-4 py-2 font-semibold bg-gray-300 rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                %>
+              <%end%>
             </div>
 
             <div>
