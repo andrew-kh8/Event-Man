@@ -7,7 +7,9 @@ class Person < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :followers, class_name: 'Friendship', foreign_key: 'author_id', inverse_of: :author, dependent: :destroy
+  has_many :followers_people, through: :followers, source: :author
   has_many :following, class_name: 'Friendship', foreign_key: 'follower_id', inverse_of: :follower, dependent: :destroy
+  has_many :following_people, through: :following, source: :follower
   has_many :participants, dependent: :destroy_async
   has_many :events, through: :participants
 

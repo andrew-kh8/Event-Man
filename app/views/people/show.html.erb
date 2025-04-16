@@ -104,12 +104,16 @@
 
     <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
       <h4 class="text-xl text-gray-900 font-bold mb-2">Участие в мероприятиях</h4>
-      <%= render "events" %>
+      <% if @events.present? %>
+        <%= render "events" %>
+      <%else%>
+        Пока мероприятий нет
+      <%end%>
     </div>
 
     <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
         <div class="flex items-center justify-between">
-            <h4 class="text-xl text-gray-900 font-bold">Connections (532)</h4>
+            <h4 class="text-xl text-gray-900 font-bold">Друзья (<%= @person.friends.size%>)</h4>
             
             <a href="#" title="View All">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,16 +123,7 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-8 mt-8">
-            <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection1.jpg" class="w-16 rounded-full">
-                <p class="text-center font-bold text-sm mt-1">Diane Aguilar</p>
-                <p class="text-xs text-gray-500 text-center">UI/UX Design at Upwork</p>
-            </a>
-            <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection2.jpg" class="w-16 rounded-full">
-                <p class="text-center font-bold text-sm mt-1">Frances Mather</p>
-                <p class="text-xs text-gray-500 text-center">Software Engineer at Facebook</p>
-            </a>
+          <%= render partial: "card", collection: @person.friends %>
         </div>
     </div>
 </div>

@@ -23,7 +23,7 @@ class PeopleController < ApplicationController
   # GET /people/1
   def show
     @pagy, @events = pagy(@person.events.order(:start_date), limit: 10)
-    @person = Person.includes(:followers, :following).find(params.expect(:id))
+    @person = Person.includes(:followers_people, :following_people).find(params.expect(:id))
   end
 
   def events
