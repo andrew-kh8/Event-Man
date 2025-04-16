@@ -15,7 +15,7 @@ class MainPageController < ApplicationController
   end
 
   def event_list
-    @pagy, @events = pagy(Event.all)
+    @pagy, @events = pagy(Event.includes(:organization).all)
     render partial: 'event_list'
   end
 

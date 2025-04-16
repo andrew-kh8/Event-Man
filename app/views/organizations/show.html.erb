@@ -43,31 +43,11 @@
           <div class="max-w-xl mx-auto my-14 text-center">  
             <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
               <p class="text-4xl font-semibold tracking-widest text-g uppercase">Мероприятия</p>
-            </div></div>
+            </div>
+          </div>
+
           <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
-
-            <% @organization.events.each do |event| %>
-
-              <%= link_to organization_event_path(@organization, event), class: "transition-all duration-1000 bg-white hover:bg-blue-500 hover:shadow-xl m-2 p-4 relative z-40 group" do %>
-
-                <div class="py-2 px-9 relative">
-
-                  <%= image_tag event.image_url %>
-
-                  <h3 class="mt-8 text-lg font-semibold text-black group-hover:text-white">
-                    <%= event.name %>
-                  </h3>
-
-                  <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-                    <%= event.start_date.strftime("%d.%m.%Y %H:%M") %> - <%= event.end_date.strftime("%d.%m.%Y %H:%M") %>
-                  </p>
-
-                  <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-                    <%= event.description %>
-                  </p>
-                </div>
-              <%end%>
-            <%end%>
+            <%= render partial: "events/card", collection: @organization.events %>
           </div>
         </div>
       </div>

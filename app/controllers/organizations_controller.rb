@@ -17,7 +17,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1
   def show
-    @organization = Organization.find(params[:id])
+    @organization = Organization.includes(:events).find(params[:id])
   end
 
   # GET /organizations/new
