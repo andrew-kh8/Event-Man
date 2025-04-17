@@ -15,11 +15,13 @@
                 <p class="text-base leading-relaxed text-gray-600 group-hover:text-white">
                   Участников: <%= @event.participants.size %>
                 </p>
-                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed text-gray-600 group-hover:text-white"%>
+                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed group-hover:text-white"%>
               </div>
 
               <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
-                <%= dates(@event) %>
+                <%= dates(@event) %> <br>
+                <%= time(@event) %> <br>
+                <%= online(@event) %>
               </p>
 
               <p class="my-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
