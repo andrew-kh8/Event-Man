@@ -3,6 +3,21 @@ class ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(participant_params)
     if @participant.save
+      notification_text = if accepted?
+                            "Вы записаны на мероприятие <a class='text-blue-500' href='#{organization_event_path(
+                              @participant.event.organization_id, @participant.event
+                            )}'>#{@participant.event.name}</a>"
+                          else
+                            "Вы приглашены на мероприятие <a class='text-blue-500' href='#{organization_event_path(
+                              @participant.event.organization_id, @participant.event
+                            )}'>#{@participant.event.name}</a>"
+                          end
+
+      Turbo::StreamsChannel.broadcast_prepend_to "notifications_for_#{@participant.person_id}",
+                                                 partial: 'layouts/notification',
+                                                 locals: { nid: @participant.id, notification_text: },
+                                                 target: "notification_#{@participant.person_id}"
+
       return render partial: 'destroy_button', locals: { participant: @participant },
                     notice: 'Participant was successfully created.'
     end

@@ -54,8 +54,8 @@
       </div>
     </div>
 
-    <% if notice %>
-      <%== notification(notice) %>
+    <% if person_signed_in? %>
+      <%= render partial: "layouts/notifications", locals: {notification_text: notice} %>
     <% end %>
 
     <main class="h-full flex">
