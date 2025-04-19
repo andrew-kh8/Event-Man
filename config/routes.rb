@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     resources :events
   end
 
-  resources :people, except: [:new, :create]
+  resources :people, except: [:new, :create] do
+    resources :notifications, only: :index
+  end
   resources :friendships, only: [:create, :destroy]
   resources :participants, only: [:create, :update, :destroy]
 

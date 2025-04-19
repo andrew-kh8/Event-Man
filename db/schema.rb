@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_19_122953) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_201918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "author_types", ["Person", "Organization"]
 
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +42,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_122953) do
     t.index ["author_id"], name: "index_friendships_on_author_id"
     t.index ["follower_id"], name: "index_friendships_on_follower_id"
     t.index ["not_approved_id"], name: "index_friendships_on_not_approved_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "person_id"
+    t.string "text", null: false
+    t.boolean "read", default: false, null: false
+    t.enum "author_type", enum_type: "author_types"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "author_type"], name: "index_notifications_on_author_id_and_author_type"
+    t.index ["person_id"], name: "index_notifications_on_person_id"
   end
 
   create_table "organizations", force: :cascade do |t|

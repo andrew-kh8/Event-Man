@@ -13,6 +13,10 @@ class Person < ApplicationRecord
   has_many :participants, dependent: :destroy_async
   has_many :events, through: :participants
 
+  has_many :notifications, dependent: :destroy_async
+
+  has_many :authored_notifications, as: :author, dependent: :nullify, class_name: 'Notification'
+
   validates :first_name, presence: true
 
   def full_name
