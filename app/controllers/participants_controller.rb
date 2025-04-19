@@ -13,7 +13,7 @@ class ParticipantsController < ApplicationController
   # PUT /participants/1
   def update
     participant = Participant.find(params[:id])
-    participant.update!(visible: params[:participants][:visible])
+    participant.update!(participant_params)
 
     render partial: "people/#{params[:participants][:visible]}_visible_icon", locals: { participant: }
   end
@@ -23,13 +23,19 @@ class ParticipantsController < ApplicationController
     participant = Participant.find(params[:id])
     participant.destroy!
 
-    render partial: 'create_button', locals: { event: participant.event }, notice: 'Participant was successfully destroyed.'
+    render partial: 'create_button',
+           locals: { event: participant.event },
+           notice: 'Participant was successfully destroyed.'
   end
 
   private
 
   def participant_params
-    data = params.require(:participants).permit(%i[person_id event_id])
-    data.merge!({ accepted: current_person.id == data[:person_id].to_i })
+    params[:participants][:accepted] = accepted?
+    params.require(:participants).permit(%i[person_id event_id visible accepted])
+  end
+
+  def accepted?
+    params[:participants][:person_id].nil? || current_person.id == params[:participants][:person_id].to_i
   end
 end

@@ -43,6 +43,7 @@
                 <%= form_with scope: :participants, url: participants_path do |form|%>
                   <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name)%>
                   <%= form.text_field :event_id, value:@event.id, class:"hidden", readonly: true%>
+                  <%= form.check_box :accepted, class: "hidden", readonly: true, checked: false%>
                   <%= form.submit "Пригласить друга", data: {turbo: true}%>
                 <%end%>
               <%end%>
