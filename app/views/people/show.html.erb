@@ -95,8 +95,8 @@
   <% if @person.description? %>
     <div class="flex flex-col w-full 2xl:w-2/3">
       <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
-          <h4 class="text-xl text-gray-900 font-bold">About</h4>
-          <p class="mt-2 text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!</p>
+          <h4 class="text-xl text-gray-900 font-bold">Обо мне</h4>
+          <p class="mt-2 text-gray-700"><%= @person.description%></p>
       </div>
     </div>
   <%end%>
@@ -104,8 +104,25 @@
 
     <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
       <h4 class="text-xl text-gray-900 font-bold mb-2">Участие в мероприятиях</h4>
-      <% if @events.present? %>
+      <% if @participants.present? %>
         <%= render "events" %>
+
+        <div class="flex justify-end">
+          <div class="mr-2">
+            <%= render partial: "normal_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - видно только друзьям
+
+          <div class="flex ml-6 mr-2">
+              <%= render partial: "public_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - видно всем пользователям
+
+          <div class="flex ml-6 mr-2">
+              <%= render partial: "private_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - никому не видно
+        </div>
       <%else%>
         Пока мероприятий нет
       <%end%>

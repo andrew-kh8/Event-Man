@@ -1,31 +1,66 @@
 <%= turbo_frame_tag "person_events" do %>
 
-    <a href="/people/<%=@person.id%>?page=<%=@pagy.page == 1 ? 1 : @pagy.page - 1%>" aria-label="Next">
-        <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
-        </svg>
-    </a>
-
     <div class="relative">
-        <div class="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
-        <% @events.each do |event| %>
+        <% if @pagy.pages > 1 &&  @pagy.page != 1 %>
+            <a href="/people/<%=@person.id%>?page=<%=@pagy.page - 1%>" aria-label="Next">
+                <svg class="w-6.5 h-6.5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"/>
+                </svg>
+            </a>
+        <%else%>
+            <div class="w-6.5 h-6.5"></div>
+        <%end%>
+
+        <div class="absolute h-full border border-dashed border-opacity-20 border-secondary ml-3"></div>
+
+        <% @participants.each do |participant| %>
             <!-- start::Timeline item -->
-            <div class="flex items-center w-full my-6 -ml-1.5">
+            <div class="flex items-center w-full my-2 py-2 hover:bg-gradient-to-r from-white via-gray-200 to-white">
                 <div class="w-1/12 z-10">
-                    <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                    <% if participant.public_visible? %>
+                        <%= render partial: "public_visible_icon", locals: {participant:} %>
+                    <%elsif participant.private_visible?%>
+                        <%= render partial: "private_visible_icon", locals: {participant:} %>
+                    <%else%>
+                        <%= render partial: "normal_visible_icon", locals: {participant:} %>
+                    <%end%>
                 </div>
-                <div class="w-11/12">
-                    <%= link_to event.name, organization_event_path(event.organization, event), data: {turbo: false}, class:"text-sm"%>
-                    <p class="text-xs text-gray-500"><%= event.start_date%></p>
+
+                <div class="w-11/12 flex justify-between">
+                    <div>
+                        <%= link_to participant.event.name, organization_event_path(participant.event.organization, participant.event), data: {turbo: false}, class:"text-sm"%>
+                        <p class="text-xs text-gray-500"><%= participant.event.start_date%></p>
+                    </div>
+
+
+                    <div class="flex">
+                        <% if person_signed_in?%>
+                            <% if current_person == @person %>
+                                <%= form_with scope: :participants, url: participant_path(participant), method: :put, data: {turbo_frame: "visible_#{participant.id}"} do |form|%>
+                                    <%= form.select(:visible, [["всем", "public"], ["друзьям", "normal"], ["никому", "private"]], {selected: participant.visible}, onchange: 'this.form.requestSubmit();')%>
+                                <%end%>
+                            <%end%>
+
+                            <% if current_person.events.include?(participant.event) %>
+                                <%= render partial: "participants/destroy_button", locals: {participant: participant} %>
+                            <%else%>
+                                <%= render partial: "participants/create_button", locals: {event: participant.event } %>
+                            <%end%>
+                        <%end%>
+                    </div>
                 </div>
             </div>
             <!-- end::Timeline item -->
         <%end%>
     </div>
 
-    <a href="/people/<%=@person.id%>?page=<%=@pagy.page == @pagy.pages ? @pagy.page : @pagy.page + 1%>" aria-label="Next">
-        <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-        </svg>
-    </a>
+    <% if @pagy.pages > 1 && @pagy.page != @pagy.pages %>
+        <a href="/people/<%=@person.id%>?page=<%=@pagy.page + 1%>" aria-label="Next">
+            <svg class="w-6.5 h-6.5 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4"/>
+            </svg>
+        </a>
+    <%else%>
+        <div class="w-6.5 h-6.5"></div>
+    <%end%>
 <%end%>

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :people, except: [:new, :create]
   resources :friendships, only: [:create, :destroy]
-  resources :participants, only: [:create, :destroy]
+  resources :participants, only: [:create, :update, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

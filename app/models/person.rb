@@ -24,10 +24,19 @@ class Person < ApplicationRecord
   end
 
   def request_friends_from_person
-    Person.where(id: followers.or(following).where.not(not_approved: [nil, id]).pluck(:author_id, :follower_id)).where.not(id:)
+    Person.where(id: followers.or(following).where.not(not_approved: [nil, id]).pluck(:author_id,
+                                                                                      :follower_id)).where.not(id:)
   end
 
   def friends
     Person.where(id: followers.or(following).where(not_approved: nil).pluck(:author_id, :follower_id)).where.not(id:)
+  end
+
+  def friend?(person)
+    friends.exists?(id: person.id)
+  end
+
+  def accepted_events
+    events.joins(:participants).where(participants: { accepted: true })
   end
 end
