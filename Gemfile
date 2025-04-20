@@ -45,7 +45,7 @@ gem 'rgeo'
 
 gem 'pagy'
 
-gem 'carrierwave', '~> 3.0'
+gem 'carrierwave', '~> 3.1'
 
 gem 'avo', '>= 3.2'
 gem 'devise', '~> 4.9'
