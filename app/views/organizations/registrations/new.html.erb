@@ -10,7 +10,7 @@
       
       <div class="md:p-5 p-1 sm:mt-1 mt-1">
         <div class="mt-5">
-          <%= form.label :name, class: "text-xl md:mb-0 mb-1" %>
+          <%= form.label :name, "Имя", class: "text-xl md:mb-0 mb-1" %>
           <%= form.text_field :name, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
         </div>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="mt-5">
-          <%= form.label :password, class: "text-xl md:mb-0 mb-1" %>
+          <%= form.label :password, "Пароль", class: "text-xl md:mb-0 mb-1" %>
           <%= form.password_field :password, autocomplete: "new-password", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -28,7 +28,7 @@
         </div> 
 
         <div class="mt-5">
-          <%= form.label :password_confirmation, class: "text-xl md:mb-0 mb-1" %>
+          <%= form.label :password_confirmation, "Подтвердите пароль", class: "text-xl md:mb-0 mb-1" %>
           <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
         </div>
       </div>

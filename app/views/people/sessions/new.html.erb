@@ -15,7 +15,7 @@
         </div>
 
         <div class="mt-5">
-          <%= form.label :password, class: "text-xl md:mb-0 mb-1" %>
+          <%= form.label :password, "Пароль", class: "text-xl md:mb-0 mb-1" %>
           <%= form.password_field :password, autocomplete: "new-password", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -24,8 +24,8 @@
 
         <% if devise_mapping.rememberable? %>
           <div class="mt-5">
-            <%= form.check_box :remember_me, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
-            <%= form.label :remember_me, class: "text-xl md:mb-0 mb-1" %>
+            <%= form.check_box :remember_me, class: "bg-white px-4 py-2 mr-4 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+            <%= form.label :remember_me, "Запомнить меня", class: "text-xl mb-1" %>
           </div>
         <% end %>
       </div>

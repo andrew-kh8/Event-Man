@@ -5,19 +5,19 @@
         <%= image_tag card.image_url %>
 
         <h3 class="mt-8 text-lg font-semibold text-black group-hover:text-white">
-        <%= card.name %>
+            <%= card.name %>
         </h3>
 
         <p class="mt-2 text-base text-gray-600 group-hover:text-white">
-        <%= card.start_date.strftime('%d.%m.%Y %H:%M') %>
+            <%= card.start_date.strftime('%d.%m.%Y %H:%M') %>
         </p>
 
         <p class="mt-2 text-base text-gray-600 group-hover:text-white">
-        <%= card.organization.name %>
+            <%= card.organization.name %>
         </p>
 
         <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-        <%= card.description %>
+            <%= card.description %>
         </p>
     </div>
 <%end%>

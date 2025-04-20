@@ -36,7 +36,7 @@
                 </h3>
 
                 <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-                  <%= organization.description %>
+                  <%= truncate(organization.description, length: 120) %>
                 </p>
               </div>
             <%end%>

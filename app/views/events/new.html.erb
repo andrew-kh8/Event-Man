@@ -1,7 +1,6 @@
-<% content_for :title, "New event" %>
+<% content_for :title, "Новое мероприятие" %>
 
 <%= javascript_include_tag "new_event_map" %>
-
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -25,26 +24,24 @@
         <% end %>
 
         <div class="bg-stone-100 w-full mx-auto p-6">
-          <div class="p-5 mt-5">
-            <div class="md:p-5 p-1 sm:mt-1 mt-1">
-              <div class="mt-5">
-                  <%= form.label :name, class: "text-xl" %>
-                  <%= form.text_field :name, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
-              </div>
+          <div class="p-5">
+            <div class="p-5">
+              <%= form.label :name, "Название", class: "text-xl" %>
+              <%= form.text_field :name, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
             </div>
 
             <div class="md:p-5 p-1 initials flex lex-row justify-between">
               <div class="mt-5">
-                  <%= form.label :start_date, class: "text-xl" %>
+                  <%= form.label :start_date, "Дата начала", class: "text-xl" %>
                   <%= form.text_field :start_date, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
               </div>
 
               <div class="mt-5 mx-4">
-                  <%= form.label :end_date, class: "text-xl" %>
+                  <%= form.label :end_date, "Дата окончания", class: "text-xl" %>
                   <%= form.text_field :end_date, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
               </div>
 
-              <div class="">
+              <div class="mt-auto mb-2">
                   <%= form.checkbox :online, class:"peer hidden" %>
                   <%= form.label :online, "Онлайн", class: "select-none cursor-pointer rounded-lg border-2 border-gray-400 py-3 px-6 font-bold text-gray-600 transition-colors duration-200 ease-in-out peer-checked:bg-indigo-200 peer-checked:text-indigo-900 peer-checked:border-indigo-200" %>
               </div>
@@ -52,17 +49,17 @@
 
             <div class="md:p-5 p-1 sm:mt-1 mt-1">
               <div class="mt-5">
-                  <%= form.label :description, class: "text-xl" %>
+                  <%= form.label :description, "Описание", class: "text-xl" %>
                   <%= form.textarea :description, rows: 4, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
               </div>
 
               <div class="mt-5">
-                  <%= form.label :image, class: "text-xl" %>
+                  <%= form.label :image, "Изображение", class: "text-xl" %>
                   <%= form.file_field :image, accept: 'image/png,image/gif,image/jpeg', class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
               </div>
 
               <div class="mt-5">
-                  <%= form.label :location, class: "text-xl" %>
+                  <%= form.label :location, "Расположение", class: "text-xl" %>
                   <%= form.text_field :location_name , class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @event.errors[:description].none?, "border-red-400 focus:outline-red-600": @event.errors[:description].any?}] %>
                   <%= form.text_field :location, class: "hidden", readonly: true %>
               </div>

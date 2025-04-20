@@ -16,30 +16,30 @@
 
     <div class="bg-stone-100 sm:w-[80%] w-[90%] mx-auto p-6">
         <div class="p-5 mt-5">
-            <div class="initials flex md:flex-row flex-col justify-evenly">
-              <%= form.label :first_name, class: "text-xl md:mb-0 mb-1" %>
+            <div class="initials flex flex-row justify-around">
+              <%= form.label :first_name, "Имя", class: "text-xl md:mb-0 mb-1" %>
               <%= form.text_field :first_name, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl", {"border-gray-400 focus:outline-blue-600": @person.errors[:name].none?, "border-red-400 focus:outline-red-600": @person.errors[:name].any?}] %>
 
-              <%= form.label :last_name, class: "text-xl md:mb-0 mb-1" %>
+              <%= form.label :last_name, "Фамилия", class: "text-xl md:mb-0 mb-1" %>
               <%= form.text_field :last_name, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl", {"border-gray-400 focus:outline-blue-600": @person.errors[:activity_field].none?, "border-red-400 focus:outline-red-600": @person.errors[:activity_field].any?}] %>
             </div>
 
-            <div class="initials flex md:flex-row flex-col justify-evenly mt-4">
-              <%= form.label :birthday, class: "text-xl md:mb-0 mb-1" %>
+            <div class="initials flex flex-row justify-around mt-6">
+              <%= form.label :birthday, "День рождения", class: "text-xl md:mb-0 mb-1" %>
               <%= form.date_field :birthday, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl", {"border-gray-400 focus:outline-blue-600": @person.errors[:activity_field].none?, "border-red-400 focus:outline-red-600": @person.errors[:activity_field].any?}] %>
 
-              <%= form.label :city, class: "text-xl md:mb-0 mb-1" %>
+              <%= form.label :city, "Город", class: "text-xl md:mb-0 mb-1" %>
               <%= form.text_field :city, class: ["bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl", {"border-gray-400 focus:outline-blue-600": @person.errors[:activity_field].none?, "border-red-400 focus:outline-red-600": @person.errors[:activity_field].any?}] %>
             </div>
 
             <div class="md:p-5 p-1 sm:mt-1 mt-1">
                 <div class="mt-5">
-                    <%= form.label :description, class: "text-xl" %>
+                    <%= form.label :description, "Описание", class: "text-xl" %>
                     <%= form.textarea :description, rows: 4, class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @person.errors[:description].none?, "border-red-400 focus:outline-red-600": @person.errors[:description].any?}] %>
                 </div>
 
                 <div class="mt-5">
-                    <%= form.label :avatar, class: "text-xl" %>
+                    <%= form.label :avatar, "Аватар", class: "text-xl" %>
                     <%= form.file_field :avatar, accept: 'image/png,image/gif,image/jpeg', class: ["bg-white w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md", {"border-gray-400 focus:outline-blue-600": @person.errors[:description].none?, "border-red-400 focus:outline-red-600": @person.errors[:description].any?}] %>
                 </div>              
             </div>
