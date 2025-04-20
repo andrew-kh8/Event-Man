@@ -12,6 +12,20 @@ class OrganizationsController < ApplicationController
                       Organization.all
                     end
 
+    if params[:favorite] == 'true'
+      fav_ids = []
+
+      if cookies[:starred_organizations].present?
+        fav_ids += cookies[:starred_organizations].gsub(/[0-9]*/).compact_blank
+      end
+
+      if person_signed_in?
+        fav_ids += current_person.starred_organizations.select(:organization_id).pluck(:organization_id)
+      end
+
+      organizations = organizations.where(id: fav_ids)
+    end
+
     @pagy, @organizations = pagy(organizations)
   end
 
