@@ -13,6 +13,7 @@ class Avo::Resources::Organization < Avo::BaseResource
     field :activity_field, as: :text
     field :logo, as: :text
     field :email, as: :text
+    field :accredited, as: :boolean
     field :events, as: :has_many
     field :authored_notifications, as: :has_many
   end

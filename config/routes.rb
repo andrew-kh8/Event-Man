@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   
   resources :organizations, except: [:new, :create] do
     resources :events
+    resource :accreditation, only: :show
   end
 
   resources :people, except: [:new, :create] do
