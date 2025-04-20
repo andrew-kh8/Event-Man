@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  authenticate :person, -> person { person.email == ENV['ADMIN_EMAIL'] } do
+    mount_avo at: '/avo'
+  end
+
   root "main_page#index"
   
   get "event_list" => "main_page#event_list"
