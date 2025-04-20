@@ -14,19 +14,20 @@ class FriendshipsController < ApplicationController
                                                  locals: { nid: n.id,
                                                            notification_text: "Новый запрос на дружбу от #{current_person.full_name}" },
                                                  target: "notification_#{author_id}"
-      return redirect_to person_path(author_id), notice: text, status: :ok
+
+      return render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
     end
 
     if @friendship.not_approved_id.nil? || @friendship.not_approved_id == author_id
-      return redirect_to person_path(author_id), notice: 'Запрос на дружбу уже отправлен', status: :ok
+      return render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
     end
 
     if @friendship.not_approved_id == current_person.id
       @friendship.update!(not_approved_id: nil)
-      return redirect_to person_path(author_id), notice: 'Запрос на дружбу принят', status: :ok
+      return render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
     end
 
-    redirect_to person_path(author_id), alert: 'Что-то пошло не так', status: :internal_server_error
+    render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
   end
 
   def destroy
@@ -41,6 +42,6 @@ class FriendshipsController < ApplicationController
       @friendship.destroy!
     end
 
-    redirect_to person_path(author_id), notice: 'Запрос на дружбу отклонен', status: :ok
+    render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
   end
 end
