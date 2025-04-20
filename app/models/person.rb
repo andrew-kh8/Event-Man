@@ -16,6 +16,7 @@ class Person < ApplicationRecord
   has_many :notifications, dependent: :destroy_async
 
   has_many :authored_notifications, as: :author, dependent: :nullify, class_name: 'Notification'
+  has_many :notice_targets, as: :target, dependent: :nullify, class_name: 'Notification'
 
   validates :first_name, presence: true
 

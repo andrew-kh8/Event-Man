@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_19_201918) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_223111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -18,6 +18,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_201918) do
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "author_types", ["Person", "Organization"]
+  create_enum "target_types", ["Person", "Event"]
+  create_enum "types_of_notifications", ["info", "invite", "offer", "warning"]
 
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +54,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_19_201918) do
     t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "target_type", enum_type: "target_types"
+    t.bigint "target_id"
+    t.enum "notice_type", default: "info", null: false, enum_type: "types_of_notifications"
     t.index ["author_id", "author_type"], name: "index_notifications_on_author_id_and_author_type"
     t.index ["person_id"], name: "index_notifications_on_person_id"
   end
