@@ -1,5 +1,8 @@
 <% content_for :title, @event.name %>
 
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
+
 <div class="w-full">
   <section class=" bg-blue-500ray-50">
     <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
@@ -40,11 +43,13 @@
                   <%= render partial: "participants/create_button", locals: {event: @event } %>
                 <%end%>
 
-                <%= form_with scope: :participants, url: participants_path do |form|%>
-                  <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name)%>
-                  <%= form.text_field :event_id, value: @event.id, class: "hidden", readonly: true%>
-                  <%= form.check_box :accepted, class: "hidden", readonly: true, checked: false%>
-                  <%= form.submit "Пригласить друга", data: {turbo: true}%>
+                <% if current_person.friends.present? %>
+                  <%= form_with scope: :participants, url: participants_path, class: "grid mx-4" do |form|%>
+                    <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name), {}, {id:'tom-select-it', class:"mt-4 input-group"} %>
+                    <%= form.text_field :event_id, value: @event.id, class: "hidden", readonly: true%>
+                    <%= form.check_box :accepted, class: "hidden", readonly: true, checked: false%>
+                    <%= form.submit "Пригласить друга", data: {turbo: true}, class: "mt-2 flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100"%>
+                  <%end%>
                 <%end%>
               <%end%>
             </div>
@@ -60,3 +65,7 @@
       </div>
     </section>
   </div>
+
+<script>
+    new TomSelect('#tom-select-it', {maxItems: 1});
+</script>

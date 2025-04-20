@@ -36,7 +36,7 @@ class Person < ApplicationRecord
   end
 
   def friends
-    Person.where(id: followers.or(following).where(not_approved: nil).pluck(:author_id, :follower_id)).where.not(id:)
+    Person.where(id: followers.or(following).where(not_approved_id: nil).pluck(:author_id, :follower_id).flatten.uniq).where.not(id:)
   end
 
   def friend?(person)
