@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_104348) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_20_135207) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -107,9 +107,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_104348) do
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
   end
 
+  create_table "starred_organizations", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_starred_organizations_on_organization_id"
+    t.index ["person_id"], name: "index_starred_organizations_on_person_id"
+  end
+
   add_foreign_key "friendships", "people", column: "author_id"
   add_foreign_key "friendships", "people", column: "follower_id"
   add_foreign_key "friendships", "people", column: "not_approved_id"
   add_foreign_key "participants", "events"
   add_foreign_key "participants", "people"
+  add_foreign_key "starred_organizations", "organizations"
+  add_foreign_key "starred_organizations", "people"
 end

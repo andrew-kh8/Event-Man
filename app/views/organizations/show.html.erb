@@ -19,6 +19,14 @@
                     </svg>
                   </div>
                 <%end%>
+
+                <% if !organization_signed_in? %>
+                  <%if cookies[:starred_organizations]&.include?(".#{@organization.id}.") || (person_signed_in? && current_person.starred?(@organization.id))%>
+                    <%= render partial: 'starred_organizations/filled_star', locals: {organization: @organization} %>
+                  <%else%>
+                    <%= render partial: 'starred_organizations/empty_star', locals: {organization: @organization} %>
+                  <%end%>
+                <%end%>
               </div>
 
               <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">

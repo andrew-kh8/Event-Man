@@ -12,15 +12,20 @@
           </div>
         </div>
         
-        <%= form_with method: :get, url: organizations_path, class:"mt-4 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
-          <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-              <%= form.search_field :organization_name, value: params[:organization_name], placeholder: "Введите название", class: "w-full focus:outline-none text-gray-700"%>
-          </div>
+        <div class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+          <%= form_with method: :get, url: organizations_path, class:"mt-4 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
+            <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                <%= form.search_field :organization_name, value: params[:organization_name], placeholder: "Введите название", class: "w-full focus:outline-none text-gray-700"%>
+            </div>
 
-          <button class="border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline md:ml-4">
-              Поиск
-          </button>
-        <%end%>
+            <%= form.checkbox :favorite, {class: "peer hidden", checked: params[:favorite] == 'true'}, 'true', 'false' %>
+            <%= form.label :favorite, "Избранные", class: "select-none cursor-pointer rounded-lg border-2 border-gray-400 px-4 py-2 ml-4 font-bold text-gray-600 transition-colors duration-200 ease-in-out peer-checked:bg-indigo-200 peer-checked:text-indigo-900 peer-checked:border-indigo-200" %>
+              
+            <button class="border-2 border-gray-500 px-4 py-2 ml-4 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                Поиск
+            </button>
+          <%end%>
+        </div>   
 
         <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
           <% @organizations.each do |organization| %>

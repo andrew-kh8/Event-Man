@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :friendships, only: [:create, :destroy]
   resources :participants, only: [:create, :update, :destroy]
+  resource :starred_organizations, only: [:create, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
