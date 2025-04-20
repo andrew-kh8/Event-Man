@@ -37,4 +37,41 @@ $(document).ready(function () {
   });
 
   marker.addTo(map);
+
+  // date time picker
+
+  $("#event_start_date, #event_end_date").daterangepicker({
+    timePicker24Hour: true,
+    singleDatePicker: true,
+    timePicker: true,
+    showDropdowns: true,
+    timePickerIncrement: 15,
+    startDate: moment().startOf("hour"),
+    locale: {
+      format: "DD.MM.YYYY HH:mm",
+      separator: " - ",
+      applyLabel: "Принять",
+      cancelLabel: "Отмена",
+      fromLabel: "С",
+      toLabel: "По",
+      customRangeLabel: "Custom",
+      weekLabel: "W",
+      daysOfWeek: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+      monthNames: [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь",
+      ],
+      firstDay: 1,
+    },
+  });
 });

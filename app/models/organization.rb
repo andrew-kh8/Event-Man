@@ -6,6 +6,7 @@ class Organization < ApplicationRecord
   mount_uploader :logo, LogoUploader
 
   has_many :events, dependent: :destroy_async
+  has_many :authored_notifications, as: :author, dependent: :nullify, class_name: 'Notification'
 
   validates :email, :name, presence: true
 end

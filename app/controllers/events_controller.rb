@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   def show
     @event = @organization.events.find(params[:id])
+    @participant = Participant.find_by(person: current_person, event: @event)
   end
 
   def new

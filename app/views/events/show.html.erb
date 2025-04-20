@@ -12,18 +12,41 @@
 
               <div class="px-4 py-1.5 mx-auto rounded-full">
                 <p class="text-4xl font-semibold tracking-widest text-g uppercase"><%= @event.name %></p>
-                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed text-gray-600 group-hover:text-white"%>
+                <p class="text-base leading-relaxed text-gray-600 group-hover:text-white">
+                  Участников: <%= @event.participants.size %>
+                </p>
+                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed group-hover:text-white"%>
               </div>
 
               <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
-                <%= dates(@event) %>
+                <%= dates(@event) %> <br>
+                <%= time(@event) %> <br>
+                <%= online(@event) %>
               </p>
 
               <p class="my-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
                 <%= @event.description %>
               </p>
 
-              <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+              <% if organization_signed_in? && current_organization == @organization %>
+                <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
+              <%end%>
+
+              <% if person_signed_in? %>
+
+                <% if current_person.events.include?(@event) %>
+                  <%= render partial: "participants/destroy_button", locals: {participant: @participant} %>
+                <%else%>
+                  <%= render partial: "participants/create_button", locals: {event: @event } %>
+                <%end%>
+
+                <%= form_with scope: :participants, url: participants_path do |form|%>
+                  <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name)%>
+                  <%= form.text_field :event_id, value:@event.id, class:"hidden", readonly: true%>
+                  <%= form.check_box :accepted, class: "hidden", readonly: true, checked: false%>
+                  <%= form.submit "Пригласить друга", data: {turbo: true}%>
+                <%end%>
+              <%end%>
             </div>
 
             <div>

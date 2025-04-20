@@ -36,43 +36,7 @@
 
     <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
         <div class="flex items-center space-x-4 mt-2">
-          <%if person_signed_in? && current_person != @person %>
-            <% if current_person.friends.include?(@person) %>
-              <%= button_to friendship_path(@person.id), method: :delete, class: "flex items-center bg-rose-900 hover:bg-rose-950 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>
-                <span>Удалить из друзей</span>
-              <%end%>
-            <% elsif current_person.request_friends_from_person.include?(@person) %>
-              <%= button_to friendship_path(@person.id), method: :delete, class: "flex items-center bg-rose-900 hover:bg-rose-950 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-              </svg>
-                <span>Отменить заявку</span>
-              <%end%>
-            <% elsif current_person.request_friends_for_person.include?(@person) %>
-              <%= button_to friendships_path(params: {author_id: @person.id}), class: "flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
-              </svg>
-                <span>Принять в друзья</span>
-              <%end%>
-              <%= button_to friendship_path(@person.id), method: :delete, class: "flex items-center bg-rose-900 hover:bg-rose-950 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-              </svg>
-                <span>Не принимать в друзья</span>
-              <%end%>
-            <%else%>
-              <%= button_to friendships_path(params: {author_id: @person.id}), class: "flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>
-                <span>Добавить в друзья</span>
-              <%end%>
-            <%end%>
-          <%end%>
+          <%= render partial: 'friendship/buttons', locals: {person: @person} %>
 
           <% if current_person == @person %>
             <%= link_to edit_person_path(@person), class:"flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do %>
@@ -95,48 +59,42 @@
   <% if @person.description? %>
     <div class="flex flex-col w-full 2xl:w-2/3">
       <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
-          <h4 class="text-xl text-gray-900 font-bold">About</h4>
-          <p class="mt-2 text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!</p>
+          <h4 class="text-xl text-gray-900 font-bold">Обо мне</h4>
+          <p class="mt-2 text-gray-700"><%= @person.description%></p>
       </div>
     </div>
   <%end%>
 
 
     <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
-      <h4 class="text-xl text-gray-900 font-bold">Участие в мероприятиях</h4>
-                <div class="relative px-4">
-                    <div class="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+      <h4 class="text-xl text-gray-900 font-bold mb-2">Участие в мероприятиях</h4>
+      <% if @participants.present? %>
+        <%= render "events" %>
 
-                    <!-- start::Timeline item -->
-                    <div class="flex items-center w-full my-6 -ml-1.5">
-                        <div class="w-1/12 z-10">
-                            <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                        </div>
-                        <div class="w-11/12">
-                            <p class="text-sm">Profile informations changed.</p>
-                            <p class="text-xs text-gray-500">3 min ago</p>
-                        </div>
-                    </div>
-                    <!-- end::Timeline item -->
+        <div class="flex justify-end">
+          <div class="mr-2">
+            <%= render partial: "normal_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - видно только друзьям
 
-                    <!-- start::Timeline item -->
-                    <div class="flex items-center w-full my-6 -ml-1.5">
-                        <div class="w-1/12 z-10">
-                            <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
-                        </div>
-                        <div class="w-11/12">
-                            <p class="text-sm">
-                                Connected with <a href="#" class="text-blue-600 font-bold">Colby Covington</a>.</p>
-                            <p class="text-xs text-gray-500">15 min ago</p>
-                        </div>
-                    </div>
-                    <!-- end::Timeline item -->
-                </div>
-            </div>
+          <div class="flex ml-6 mr-2">
+              <%= render partial: "public_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - видно всем пользователям
+
+          <div class="flex ml-6 mr-2">
+              <%= render partial: "private_visible_icon", locals: {participant: {id: "example"}} %>
+          </div>
+          - никому не видно
+        </div>
+      <%else%>
+        Пока мероприятий нет
+      <%end%>
+    </div>
 
     <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
         <div class="flex items-center justify-between">
-            <h4 class="text-xl text-gray-900 font-bold">Connections (532)</h4>
+            <h4 class="text-xl text-gray-900 font-bold">Друзья (<%= @person.friends.size%>)</h4>
             
             <a href="#" title="View All">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 hover:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,16 +104,7 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-8 mt-8">
-            <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection1.jpg" class="w-16 rounded-full">
-                <p class="text-center font-bold text-sm mt-1">Diane Aguilar</p>
-                <p class="text-xs text-gray-500 text-center">UI/UX Design at Upwork</p>
-            </a>
-            <a href="#" class="flex flex-col items-center justify-center text-gray-800 hover:text-blue-600" title="View Profile">
-                <img src="https://vojislavd.com/ta-template-demo/assets/img/connections/connection2.jpg" class="w-16 rounded-full">
-                <p class="text-center font-bold text-sm mt-1">Frances Mather</p>
-                <p class="text-xs text-gray-500 text-center">Software Engineer at Facebook</p>
-            </a>
+          <%= render partial: "card", collection: @person.friends %>
         </div>
     </div>
 </div>

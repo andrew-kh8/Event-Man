@@ -3,7 +3,7 @@
 <div class="w-full">
   <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
 
-    <div class="relative mx-auto h-full px-4 pb-20 md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+    <div class="relative mx-auto h-full pb-20 md:pb-10 sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
 
       <div class="mx-auto relative">
         <div class="max-w-xl mx-auto text-center">
@@ -30,16 +30,7 @@
           </div>
         <% else %>
           <div class="grid grid-cols-5 gap-8 mt-8">
-            <% @people.each do |person| %>
-
-              <%= link_to person_path(person), class: "py-4 rounded-xl flex flex-col items-center justify-center text-gray-800 hover:text-blue-600 bg-gray-100" do %>
-                <%= image_tag person.avatar_url, class:"w-32 rounded-full" %>
-
-                <h3 class="text-center font-bold text-sm mt-1">
-                  <%= person.full_name %>
-                </h3>
-              <%end%>
-            <%end%>
+            <%= render partial: "card", collection: @people%>
           </div>
         <%end%>
       </div>
