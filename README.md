@@ -2,6 +2,7 @@
 
 
 ## Start
+copy .env from .env.sample and fill it
 
 copy Procfile.dev from Procfile.dev.sample and configure it. Then run
 

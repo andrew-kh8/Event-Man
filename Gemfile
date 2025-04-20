@@ -47,6 +47,7 @@ gem 'pagy'
 
 gem 'carrierwave', '~> 3.0'
 
+gem 'avo', '>= 3.2'
 gem 'devise', '~> 4.9'
 
 group :development, :test do
@@ -58,6 +59,8 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'rubocop-rails', require: false
+
+  gem 'dotenv'
 end
 
 group :development do
