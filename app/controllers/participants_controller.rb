@@ -3,15 +3,15 @@ class ParticipantsController < ApplicationController
   def create
     @participant = Participant.new(participant_params)
     if @participant.save
-      notification_text = if accepted?
-                            "Вы записаны на мероприятие <a class='text-blue-500' href='#{organization_event_path(
-                              @participant.event.organization_id, @participant.event
-                            )}'>#{@participant.event.name}</a>"
-                          else
-                            "Вы приглашены на мероприятие <a class='text-blue-500' href='#{organization_event_path(
-                              @participant.event.organization_id, @participant.event
-                            )}'>#{@participant.event.name}</a>"
-                          end
+      if accepted?
+        notification_text = "Вы записаны на мероприятие #{@participant.event.name}"
+        Notification.create(person: current_person, author: current_person, target: @participant.event,
+                            notice_type: 'info', text: notification_text)
+      else
+        notification_text = "Вы приглашены на мероприятие #{@participant.event.name}"
+        Notification.create(person_id: params[:participants][:person_id],
+                            author: current_person, target: @participant.event, notice_type: 'invite', text: notification_text)
+      end
 
       Turbo::StreamsChannel.broadcast_prepend_to "notifications_for_#{@participant.person_id}",
                                                  partial: 'layouts/notification',
@@ -30,7 +30,11 @@ class ParticipantsController < ApplicationController
     participant = Participant.find(params[:id])
     participant.update!(participant_params)
 
-    render partial: "people/#{params[:participants][:visible]}_visible_icon", locals: { participant: }
+    if params[:participants][:visible]
+      render partial: "people/#{participant.visible}_visible_icon", locals: { participant: }
+    else
+      render partial: 'destroy_button', locals: { participant: }, notice: 'Participant was successfully created.'
+    end
   end
 
   # DELETE /participants/1
