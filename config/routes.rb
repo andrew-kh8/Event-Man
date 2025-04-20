@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :people, except: [:new, :create] do
-    resources :notifications, only: :index
+    resources :notifications, only: [:index, :destroy]
   end
   resources :friendships, only: [:create, :destroy]
   resources :participants, only: [:create, :update, :destroy]
