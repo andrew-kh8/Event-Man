@@ -40,13 +40,18 @@ gem 'thruster', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# geo
 gem 'activerecord-postgis-adapter'
 gem 'rgeo'
 
+# search & filters
+gem 'acts-as-taggable-on'
 gem 'pagy'
 
+# image
 gem 'carrierwave', '~> 3.0'
 
+# chore
 gem 'avo', '>= 3.2'
 gem 'devise', '~> 4.9'
 

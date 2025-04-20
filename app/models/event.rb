@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  acts_as_taggable_on :tags
+
   SRID = 4326
 
   mount_uploader :image, ImageUploader

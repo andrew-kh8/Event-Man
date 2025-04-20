@@ -1,4 +1,12 @@
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
+
 <%= form_with method: :get, url: root_path, class:"flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
+        
+    <div class="w-1/2 px-4 py-1 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+        <%= form.collection_select :tag_list, ActsAsTaggableOn::Tag.most_used, :name, :name, {}, {multiple: true, id: 'tom-select-it', placeholder: "Выберите теги", class: "w-full focus:outline-none z-400"} %>
+    </div>
+
     <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
         <%= form.search_field :event_name, value: params[:event_name], placeholder: "Введите название", class: "w-full focus:outline-none text-gray-700"%>
     </div>
@@ -8,3 +16,6 @@
     </button>
 <%end%>
 
+<script>
+    new TomSelect('#tom-select-it', {maxItems: 5});
+</script>
