@@ -18,6 +18,8 @@ class Person < ApplicationRecord
   has_many :authored_notifications, as: :author, dependent: :nullify, class_name: 'Notification'
   has_many :notice_targets, as: :target, dependent: :nullify, class_name: 'Notification'
 
+  has_many :starred_organizations, dependent: :destroy
+
   validates :first_name, presence: true
 
   def full_name
@@ -43,5 +45,9 @@ class Person < ApplicationRecord
 
   def accepted_events
     events.joins(:participants).where(participants: { accepted: true })
+  end
+
+  def starred?(organization_id)
+    starred_organizations.select(:organization_id).exists?(organization_id:)
   end
 end
