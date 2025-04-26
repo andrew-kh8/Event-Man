@@ -20,9 +20,15 @@
             </div>
           </div>
 
-          <div class="grid gap-2 mt-12 sm:grid-cols-4 lg:mt-20">
-            <%= render partial: "events/card", collection: @events %>
-          </div>
+          <% if @events.present? %>
+            <div class="grid gap-2 mt-12 sm:grid-cols-4 lg:mt-20">
+              <%= render partial: "events/card", collection: @events %>
+            </div>
+          <%else%>
+            <div class="p-4">
+              Мероприятия не найдены. Попробуйте перезагрузить страницу или поменять фильтры
+            </div>
+          <%end%>
       </div>
 
       <div class="max-w-xl mx-auto text-center m-4">

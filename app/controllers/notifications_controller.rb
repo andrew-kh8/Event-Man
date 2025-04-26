@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   include Authenticator
 
   before_action :authenticate_user
-  after_action { @notifications.update_all(read: true) }
+  after_action { @notifications&.update_all(read: true) }
 
   # GET /person/notifications
   def index
