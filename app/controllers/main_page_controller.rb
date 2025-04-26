@@ -9,7 +9,7 @@ class MainPageController < ApplicationController
                         Event.all
                       end
 
-    filtered_events = filtered_events.tagged_with(search_tags, any: true) if params[:tag_list].present?
+    filtered_events = filtered_events.tagged_with(search_tags, any: true) if search_tags.present?
     @pagy, @events = pagy(filtered_events)
   end
 
@@ -25,6 +25,6 @@ class MainPageController < ApplicationController
   private
 
   def search_tags
-    params[:tag_list].compact_blank
+    params[:tag_list]&.compact_blank
   end
 end
