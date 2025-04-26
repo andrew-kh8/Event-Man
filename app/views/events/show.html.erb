@@ -57,6 +57,12 @@
             <div>
               <%= image_tag @event.image_url %>
             </div>
+
+            <% if @event.tag_list.present? %>
+              <div class="absolute top-0 right-2 z-10 mt-3 ml-3">
+                <%= render partial: "events/tag", collection: @event.tag_list %>
+              </div>
+            <%end%>
           </div>
           
           <div class="max-w-xl mx-auto my-14 text-center">
