@@ -64,6 +64,8 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-capybara', require: false
 
   gem 'dotenv'
   gem 'ffaker'
