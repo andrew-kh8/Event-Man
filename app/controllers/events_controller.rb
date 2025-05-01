@@ -16,6 +16,7 @@ class EventsController < ApplicationController
 
   def create
     @event = @organization.events.new(event_params)
+    @event.tag_list = event_tags if params[:event][:tag_list].present?
 
     if @event.save
       redirect_to organization_event_path(@organization, @event), notice: 'Event was successfully created.'
@@ -26,6 +27,8 @@ class EventsController < ApplicationController
 
   def update
     @event = @organization.events.find(params[:id])
+    @event.tag_list = event_tags if params[:event][:tag_list].present?
+
     if @event.update(event_params)
       redirect_to organization_event_path(@organization, @event), notice: 'Event was successfully updated.',
                                                                   status: :see_other
@@ -53,5 +56,9 @@ class EventsController < ApplicationController
     location = RGeo::Cartesian.factory(srid: Event::SRID).point(*params[:event][:location].split)
 
     data.merge({ location: })
+  end
+
+  def event_tags
+    params[:event][:tag_list].split(',').map { _1.strip.downcase }.compact_blank
   end
 end
