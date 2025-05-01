@@ -66,6 +66,7 @@ group :development, :test do
   gem 'rubocop-rails', require: false
 
   gem 'dotenv'
+  gem 'ffaker'
 
   gem 'rspec-rails', '~> 8.0.0'
 end
