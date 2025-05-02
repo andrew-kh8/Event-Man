@@ -8,7 +8,7 @@ RSpec.describe Event, type: :model do
 
   # associations
   it { is_expected.to belong_to :organization }
-  it { is_expected.to have_many :participants }
-  it { is_expected.to have_many :people }
-  it { is_expected.to have_many :notice_targets }
+  it { is_expected.to have_many(:participants).dependent(:destroy_async) }
+  it { is_expected.to have_many(:people).through(:participants) }
+  it { is_expected.to have_many(:notice_targets).dependent(:nullify).class_name('Notification') }
 end
