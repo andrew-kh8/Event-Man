@@ -5,5 +5,8 @@ FactoryBot.define do
     birthday { FFaker::Date.birthday }
     description { FFaker::Lorem.sentence }
     city { FFaker::Address.city }
+
+    email { FFaker::Internet.email }
+    password { FFaker::Internet.password }
   end
 end
