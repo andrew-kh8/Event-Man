@@ -23,4 +23,49 @@ RSpec.describe 'show event', type: :system do
       .and have_content(first_event_tag)
       .and have_content(second_event_tag)
   end
+
+  context 'when person signed in' do
+    let(:person) { create(:person) }
+
+    before { login_as(person) }
+
+    it 'show event with ability to take part' do
+      visit organization_event_path(organization, event)
+
+      expect(page).to have_content('Записаться')
+        .and have_content('Вы не записаны')
+
+      click_button('Записаться')
+      expect(page).to have_content('Вы записаны')
+        .and have_content('Отменить участие')
+
+      refresh
+      expect(page).to have_content('Вы записаны')
+        .and have_content('Отменить участие')
+
+      click_button('Отменить участие')
+      expect(page).to have_content('Записаться')
+        .and have_content('Вы не записаны')
+
+      refresh
+      expect(page).to have_content('Записаться')
+        .and have_content('Вы не записаны')
+    end
+
+    context 'when person has a friend' do
+      let(:friend) { create(:person) }
+      let!(:friendship) { create(:friendship, author: person, follower: friend) }
+
+      it 'has ability to invite friend' do
+        visit organization_event_path(organization, event)
+
+        expect(page).to have_content('Записаться')
+          .and have_content('Вы не записаны')
+          .and have_button('Пригласить друга')
+
+        select(friend.full_name, from: 'participants[person_id]')
+        click_button('Пригласить друга')
+      end
+    end
+  end
 end
