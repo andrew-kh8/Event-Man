@@ -54,7 +54,8 @@ RSpec.describe 'show event', type: :system do
 
     context 'when person has a friend' do
       let(:friend) { create(:person) }
-      let!(:friendship) { create(:friendship, author: person, follower: friend) }
+
+      before { create(:friendship, author: person, follower: friend) }
 
       it 'has ability to invite friend' do
         visit organization_event_path(organization, event)
