@@ -16,19 +16,19 @@
         
         <div class="w-full lg:w-4/12 px-4 lg:order-1">
           <div class="flex justify-center py-4 lg:pt-4 pt-8">
-            <div class="mr-4 p-3 text-center">
+            <div id="friends_stat" class="mr-4 p-3 text-center">
               <%= link_to people_path(params: {friends: @person.id}) do %>
                 <span class="text-xl font-bold block tracking-wide text-blueGray-600"><%= @person.friends.count %></span>
                 <span class="text-sm text-blueGray-400">Друзей</span>
               <%end%>
             </div>
 
-            <div class="mr-4 p-3 text-center">
+            <div id="events_stat" class="mr-4 p-3 text-center">
               <span class="text-xl font-bold block tracking-wide text-blueGray-600"><%= @pagy.count %></span>
               <span class="text-sm text-blueGray-400">Мероприятий</span>
             </div>
 
-            <div class="p-3 text-center">
+            <div id="registry_stat" class="p-3 text-center">
               <span class="text-xl font-bold block tracking-wide text-blueGray-600"><%= @person.created_at.strftime("%d.%m.%y")%></span>
               <span class="text-sm text-blueGray-400">Регистрация</span>
             </div>
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
+    <div id="buttons" class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
         <div class="flex items-center space-x-4 mt-2">
           <%= render partial: 'friendship/buttons', locals: {person: @person} %>
 
@@ -59,7 +59,7 @@
   </div>
 
   <% if @person.description? %>
-    <div class="flex flex-col w-full 2xl:w-2/3">
+    <div id="description" class="flex flex-col w-full mt-4">
       <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
           <h4 class="text-xl text-gray-900 font-bold">Обо мне</h4>
           <p class="mt-2 text-gray-700"><%= @person.description%></p>
@@ -68,7 +68,7 @@
   <%end%>
 
 
-    <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
+    <div id="events" class="bg-white rounded-lg shadow-xl p-8 mt-4">
       <h4 class="text-xl text-gray-900 font-bold mb-2">Участие в мероприятиях</h4>
       <% if @participants.present? %>
         <%= render "events" %>
@@ -94,7 +94,7 @@
       <%end%>
     </div>
 
-    <div class="bg-white rounded-lg shadow-xl p-8 mt-4">
+    <div id="friends" class="bg-white rounded-lg shadow-xl p-8 mt-4">
           <%= link_to people_path(params: {friends: @person.id}) do %>
             <h4 class="text-xl text-gray-900 font-bold">Друзья (<%= @person.friends.size%>)</h4>
           <%end%>
