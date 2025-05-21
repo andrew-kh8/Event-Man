@@ -9,7 +9,7 @@ RSpec.describe 'star organization', type: :system do
       visit organization_path(organization)
 
       expect(page).to have_css('#empty_star')
-      # check buttons and img
+
       click_button('empty_star')
       expect(page).to have_css('#filled_star')
 
@@ -19,7 +19,7 @@ RSpec.describe 'star organization', type: :system do
       visit organizations_path
       find('label', text: 'Избранные').click
       click_button('Поиск')
-      expect(page).to have_content(organization.name.upcase)
+      expect(page).to have_content(organization.name)
 
       visit organization_path(organization)
       expect(page).to have_css('#filled_star')
@@ -39,14 +39,14 @@ RSpec.describe 'star organization', type: :system do
     it 'can be starred' do
       visit organization_path(organization)
 
-      expect(page).to have_content(organization.name.upcase)
+      expect(page).to have_content(organization.name)
       expect(page).to have_css('#empty_star')
       click_button('empty_star')
       expect(page).to have_css('#filled_star')
 
       visit organization_path(another_org)
 
-      expect(page).to have_content(another_org.name.upcase)
+      expect(page).to have_content(another_org.name)
       expect(page).to have_css('#empty_star')
 
       visit organization_path(organization)
@@ -60,13 +60,13 @@ RSpec.describe 'star organization', type: :system do
     it 'can not be starred' do
       visit organization_path(organization)
 
-      expect(page).to have_content(organization.name.upcase)
+      expect(page).to have_content(organization.name)
       expect(page).to have_no_css('#filled_star')
       expect(page).to have_no_css('#empty_star')
 
       visit organization_path(another_org)
 
-      expect(page).to have_content(another_org.name.upcase)
+      expect(page).to have_content(another_org.name)
       expect(page).to have_no_css('#filled_star')
       expect(page).to have_no_css('#empty_star')
     end

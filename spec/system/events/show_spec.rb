@@ -14,7 +14,7 @@ RSpec.describe 'show event', type: :system do
   it 'show event page' do
     visit organization_event_path(organization, event)
 
-    expect(page).to have_content(event.name.upcase)
+    expect(page).to have_content(event.name)
       .and have_link(organization.name, href: organization_path(organization))
       .and have_content("Участников: #{event.participants.size}")
       .and have_content('01.05.2025 - 01.05.2025')

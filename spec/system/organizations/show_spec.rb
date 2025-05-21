@@ -48,7 +48,7 @@ RSpec.describe 'show organization', type: :system do
 
       visit organization_path(another_org)
 
-      expect(page).to have_content(another_org.name.upcase)
+      expect(page).to have_content(another_org.name)
         .and have_content(another_org.activity_field)
         .and have_content(another_org.description)
         .and have_no_content('Добавить мероприятие')
@@ -76,7 +76,7 @@ RSpec.describe 'show organization', type: :system do
 
       visit organization_path(another_org)
 
-      expect(page).to have_content(another_org.name.upcase)
+      expect(page).to have_content(another_org.name)
         .and have_no_content('Добавить мероприятие')
         .and have_no_content('Пройти аккредитацию')
         .and have_no_content('Редактировать')
