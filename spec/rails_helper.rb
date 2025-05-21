@@ -74,6 +74,12 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Warden::Test::Helpers
+
+  config.before(:each, type: :system) do
+    driven_by :selenium_chrome_headless do |driver_option|
+      driver_option.add_argument('--window-size=1920,1080')
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -82,3 +88,6 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.default_driver = :selenium_chrome_headless
+Capybara.javascript_driver = :selenium_chrome_headless
