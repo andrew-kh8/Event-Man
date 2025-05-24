@@ -39,6 +39,8 @@ RSpec.describe 'User Profile', type: :system do
 
   context 'when user wanna make friend' do
     it 'creates a friend request' do
+      visit person_path(friend)
+
       expect(page).to have_button('Добавить в друзья')
       click_button('Добавить в друзья')
 

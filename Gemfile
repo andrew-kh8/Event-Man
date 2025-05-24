@@ -63,9 +63,11 @@ group :development, :test do
   gem 'brakeman', require: false
 
   gem 'factory_bot_rails'
+  gem 'reek', require: false
+  gem 'rubocop-capybara', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-  gem 'rubocop-capybara', require: false
+  gem 'rubycritic', require: false
 
   gem 'dotenv'
   gem 'ffaker'
@@ -83,4 +85,5 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 6.0'
+  gem 'simplecov', require: false
 end

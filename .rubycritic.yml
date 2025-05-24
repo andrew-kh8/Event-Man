@@ -1,0 +1,8 @@
+paths: # Files to analyse. Churn calculation is scoped to these files when using Git SCM.
+  - 'app/controllers/'
+  - 'app/helpers/'
+  - 'app/models/'
+  - 'app/parameter_sanitizers/'
+  - 'app/uploaders/'
+  - 'app/views/'
+  - 'spec/'
