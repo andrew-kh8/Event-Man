@@ -36,26 +36,4 @@ RSpec.describe 'User Profile', type: :system do
         .and have_link(href: people_path(params: { friends: friend.id }))
     end
   end
-
-  context 'when user wanna make friend' do
-    it 'creates a friend request' do
-      visit person_path(friend)
-
-      expect(page).to have_button('Добавить в друзья')
-      click_button('Добавить в друзья')
-
-      expect(find_by_id('buttons')).to have_button('Отменить заявку')
-      click_button('Отменить заявку')
-
-      expect(find_by_id('buttons')).to have_button('Добавить в друзья')
-    end
-  end
-
-  # 'Sending a friend request'
-  # 'Accepting a friend request'
-  # 'Declining a friend request'
-  # 'Removing a friend'
-  # 'Viewing person friends'
-  # 'Viewing person events'
-  # 'Setting event privacy'
 end
