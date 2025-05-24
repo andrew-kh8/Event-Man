@@ -61,7 +61,7 @@ jobs:
 
     services:
       postgres:
-        image: postgis/postgis:15-3.3
+        image: postgis/postgis:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -92,6 +92,10 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: postgres
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare spec
