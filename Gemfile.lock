@@ -118,8 +118,6 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
-    bundle-audit (0.1.0)
-      bundler-audit
     bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
@@ -577,7 +575,7 @@ DEPENDENCIES
   avo (>= 3.2)
   bootsnap
   brakeman
-  bundle-audit
+  bundler-audit
   capybara
   carrierwave (~> 3.0)
   debug

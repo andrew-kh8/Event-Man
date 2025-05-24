@@ -53,7 +53,7 @@ gem 'carrierwave', '~> 3.0'
 
 # chore
 gem 'avo', '>= 3.2'
-gem 'bundle-audit'
+gem 'bundler-audit'
 gem 'devise', '~> 4.9'
 
 group :development, :test do

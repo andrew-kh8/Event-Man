@@ -25,7 +25,7 @@ jobs:
         run: bin/brakeman --no-pager
       
       - name: Scan Gemfile via bundler
-        run: bundle-audit
+        run: bundler-audit
 
   scan_js:
     runs-on: ubuntu-latest
