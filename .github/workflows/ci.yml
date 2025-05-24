@@ -19,13 +19,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - run: bundle
-
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
       
       - name: Scan Gemfile via bundler
-        run: bundler-audit
+        run: bundle exec bundler-audit
 
   scan_js:
     runs-on: ubuntu-latest
@@ -89,8 +87,6 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
-      - run: bundle
 
       - name: Run tests
         env:
