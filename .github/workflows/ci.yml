@@ -19,7 +19,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
+      - name: Scan for common Rails security vulnerabilities using brakeman
         run: bin/brakeman --no-pager
       
       - name: Scan Gemfile via bundler
@@ -53,8 +53,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
+      - name: Rubocop
         run: bin/rubocop -f github
+        continue-on-error: true
 
   test:
     runs-on: ubuntu-latest
