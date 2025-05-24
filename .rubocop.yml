@@ -6,11 +6,15 @@ AllCops:
     - db/**/*
     - config/**/*
     - bin/*
+    - vendor/**/*
+    - node_modules/**/*
 
 plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
   - rubocop-capybara
+  - rubocop-factory_bot
 
 Style/Documentation:
   Enabled: false

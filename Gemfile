@@ -66,8 +66,10 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'reek', require: false
   gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
   gem 'rubycritic', require: false
 
   gem 'dotenv'
