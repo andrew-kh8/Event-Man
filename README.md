@@ -25,6 +25,12 @@ Things you may want to cover:
 
 * How to run the test suite
 
+```
+rspec
+
+rubycritic
+```
+
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
