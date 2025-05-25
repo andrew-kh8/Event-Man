@@ -25,6 +25,51 @@ jobs:
       - name: Scan Gemfile via bundler
         run: bundle exec bundler-audit
 
+  scan_database:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: event_man_test
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config google-chrome-stable
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Check database consistency
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: bundle exec database_consistency
+
+      - name: Check database health
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: bundle exec rails active_record_doctor
+
   scan_js:
     runs-on: ubuntu-latest
 

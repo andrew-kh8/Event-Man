@@ -1,0 +1,21 @@
+# Ignore false positive from Rails' ActionText and ActiveStorage
+ActionText::RichText:
+  enabled: false
+ActiveStorage::Attachment:
+  enabled: false
+ActiveStorage::Blob:
+  enabled: false
+ActiveStorage::VariantRecord:
+  enabled: false
+
+
+# skip check reset_password_token field (from devise)
+Person:
+  index_people_on_reset_password_token:
+    UniqueIndexChecker:
+      enabled: false
+
+Organization:
+  index_organizations_on_reset_password_token:
+    UniqueIndexChecker:
+      enabled: false
