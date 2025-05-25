@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_102000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -27,7 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
     t.string "image"
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
-    t.bigint "organization_id"
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.geometry "location", limit: {:srid=>4326, :type=>"st_point"}
@@ -47,22 +47,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.bigint "person_id"
+    t.bigint "person_id", null: false
     t.string "text", null: false
     t.boolean "read", default: false, null: false
-    t.enum "author_type", enum_type: "author_types"
-    t.bigint "author_id"
+    t.enum "author_type", null: false, enum_type: "author_types"
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "target_type", enum_type: "target_types"
-    t.bigint "target_id"
+    t.enum "target_type", null: false, enum_type: "target_types"
+    t.bigint "target_id", null: false
     t.enum "notice_type", default: "info", null: false, enum_type: "types_of_notifications"
     t.index ["author_id", "author_type"], name: "index_notifications_on_author_id_and_author_type"
     t.index ["person_id"], name: "index_notifications_on_person_id"
+    t.index ["target_id", "target_type"], name: "index_notifications_on_target_id_and_target_type"
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.string "activity_field"
     t.datetime "created_at", null: false
@@ -90,8 +91,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "avatar"
     t.date "birthday"
     t.text "description"
@@ -113,7 +114,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_starred_organizations_on_organization_id"
-    t.index ["person_id"], name: "index_starred_organizations_on_person_id"
+    t.index ["person_id", "organization_id"], name: "index_starred_organizations_on_person_id_and_organization_id", unique: true
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -147,9 +148,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_20_155915) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  add_foreign_key "events", "organizations"
   add_foreign_key "friendships", "people", column: "author_id"
   add_foreign_key "friendships", "people", column: "follower_id"
   add_foreign_key "friendships", "people", column: "not_approved_id"
+  add_foreign_key "notifications", "people"
   add_foreign_key "participants", "events"
   add_foreign_key "participants", "people"
   add_foreign_key "starred_organizations", "organizations"
