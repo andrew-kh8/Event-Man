@@ -39,8 +39,6 @@ RSpec.describe 'star organization', type: :system do
     it 'can be starred' do
       visit organization_path(organization)
 
-
-      
       expect(page).to have_content(organization.name)
       expect(page).to have_css('#empty_star')
       click_button('empty_star')
