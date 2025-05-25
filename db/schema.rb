@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_102000) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_134600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -149,13 +149,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_102000) do
   end
 
   add_foreign_key "events", "organizations"
-  add_foreign_key "friendships", "people", column: "author_id"
-  add_foreign_key "friendships", "people", column: "follower_id"
+  add_foreign_key "friendships", "people", column: "author_id", on_delete: :cascade
+  add_foreign_key "friendships", "people", column: "follower_id", on_delete: :cascade
   add_foreign_key "friendships", "people", column: "not_approved_id"
-  add_foreign_key "notifications", "people"
-  add_foreign_key "participants", "events"
-  add_foreign_key "participants", "people"
-  add_foreign_key "starred_organizations", "organizations"
-  add_foreign_key "starred_organizations", "people"
+  add_foreign_key "notifications", "people", on_delete: :cascade
+  add_foreign_key "participants", "events", on_delete: :cascade
+  add_foreign_key "participants", "people", on_delete: :cascade
+  add_foreign_key "starred_organizations", "organizations", on_delete: :cascade
+  add_foreign_key "starred_organizations", "people", on_delete: :cascade
   add_foreign_key "taggings", "tags"
 end
