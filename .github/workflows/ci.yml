@@ -119,6 +119,15 @@ jobs:
       #     - 6379:6379
       #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
+    env:
+      RAILS_ENV: test
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      # DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      # REDIS_URL: redis://localhost:6379/0
+  
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config google-chrome-stable
@@ -132,16 +141,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Prepare test db
+        run: bin/rails db:test:prepare
+
       - name: Run tests
-        env:
-          RAILS_ENV: test
-          PGHOST: localhost
-          PGPORT: 5432
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          # DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare spec
+        run: bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
