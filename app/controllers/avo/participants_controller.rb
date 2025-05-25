@@ -1,4 +1,6 @@
 # This controller has been generated to enable Rails' resource routes.
 # More information on https://docs.avohq.io/3.0/controllers.html
-class Avo::ParticipantsController < Avo::ResourcesController
+module Avo
+  class ParticipantsController < Avo::ResourcesController
+  end
 end

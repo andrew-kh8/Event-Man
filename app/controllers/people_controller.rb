@@ -43,8 +43,7 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit
-  end
+  def edit; end
 
   # PATCH/PUT /people/1
   def update

@@ -5,12 +5,17 @@ class ParticipantsController < ApplicationController
     if @participant.save
       if accepted?
         notification_text = "Вы записаны на мероприятие #{@participant.event.name}"
-        Notification.create(person: current_person, author: current_person, target: @participant.event,
-                            notice_type: 'info', text: notification_text)
+        Notification.create(person: current_person,
+                            author: current_person,
+                            target: @participant.event,
+                            notice_type: 'info',
+                            text: notification_text)
       else
         notification_text = "Вы приглашены на мероприятие #{@participant.event.name}"
         Notification.create(person_id: params[:participants][:person_id],
-                            author: current_person, target: @participant.event, notice_type: 'invite', text: notification_text)
+                            author: current_person,
+                            target: @participant.event,
+                            notice_type: 'invite', text: notification_text)
       end
 
       Turbo::StreamsChannel.broadcast_prepend_to "notifications_for_#{@participant.person_id}",

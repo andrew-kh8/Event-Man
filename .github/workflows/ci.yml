@@ -55,7 +55,6 @@ jobs:
 
       - name: Rubocop
         run: bin/rubocop -f github
-        continue-on-error: true
 
   test:
     runs-on: ubuntu-latest

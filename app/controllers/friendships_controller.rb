@@ -7,13 +7,19 @@ class FriendshipsController < ApplicationController
     if @friendship.nil?
       Friendship.create!(author_id: author_id, follower_id: current_person.id, not_approved_id: author_id)
       text = 'Запрос на дружбу отправлен'
-      n = Notification.create(author: current_person, person_id: author_id, notice_type: 'offer', text:, target_type: 'Person',
+      n = Notification.create(author: current_person,
+                              person_id: author_id,
+                              notice_type: 'offer',
+                              text:,
+                              target_type: 'Person',
                               target_id: current_person.id)
-      Turbo::StreamsChannel.broadcast_prepend_to "notifications_for_#{author_id}",
-                                                 partial: 'layouts/notification',
-                                                 locals: { nid: n.id,
-                                                           notification_text: "Новый запрос на дружбу от #{current_person.full_name}" },
-                                                 target: "notification_#{author_id}"
+      Turbo::StreamsChannel.broadcast_prepend_to(
+        "notifications_for_#{author_id}",
+        partial: 'layouts/notification',
+        locals: { nid: n.id,
+                  notification_text: "Новый запрос на дружбу от #{current_person.full_name}" },
+        target: "notification_#{author_id}"
+      )
 
       return render partial: 'friendship/buttons', locals: { person: Person.find(author_id) }
     end
