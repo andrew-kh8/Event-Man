@@ -9,9 +9,15 @@ ActiveRecordDoctor.configure do
     'action_text_rich_texts',
 
     # Add project-specific tables here.
+    # solid things
     'solid_cable_messages',
     'solid_cache_entries',
-    /^solid_queue_/
+    /^solid_queue_/,
+
+    # tables from gems
+    'taggings',
+    'tags',
+    'spatial_ref_sys'
   ]
   global :ignore_indexes, [
     /^index_taggings_on_/
@@ -32,4 +38,13 @@ ActiveRecordDoctor.configure do
            ignore_models: [
              /^SolidQueue/
            ]
+
+  detector :missing_presence_validation,
+           ignore_attributes: [
+             /.encrypted_password/
+           ],
+           ignore_columns_with_default: true
+
+  detector :incorrect_length_validation,
+           ignore_models: [/^ActsAsTaggableOn/]
 end

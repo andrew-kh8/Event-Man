@@ -6,21 +6,21 @@ class Person < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  has_many :followers, class_name: 'Friendship', foreign_key: 'author_id', inverse_of: :author, dependent: :destroy
+  has_many :followers, class_name: 'Friendship', foreign_key: 'author_id', inverse_of: :author, dependent: :delete_all
   has_many :followers_people, through: :followers, source: :author
-  has_many :following, class_name: 'Friendship', foreign_key: 'follower_id', inverse_of: :follower, dependent: :destroy
+  has_many :following, class_name: 'Friendship', foreign_key: 'follower_id', inverse_of: :follower, dependent: :delete_all
   has_many :following_people, through: :following, source: :follower
-  has_many :participants, dependent: :destroy_async
+  has_many :participants, dependent: :delete_all
   has_many :events, through: :participants
 
-  has_many :notifications, dependent: :destroy_async
+  has_many :notifications, dependent: :delete_all
 
   has_many :authored_notifications, as: :author, dependent: :nullify, class_name: 'Notification'
   has_many :notice_targets, as: :target, dependent: :nullify, class_name: 'Notification'
 
-  has_many :starred_organizations, dependent: :destroy
+  has_many :starred_organizations, dependent: :delete_all
 
-  validates :first_name, presence: true
+  validates :first_name, :last_name, :email, presence: true
 
   def full_name
     [first_name, last_name].compact.join(' ')
