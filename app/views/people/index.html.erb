@@ -26,10 +26,6 @@
       </div>
     </div>
 
-    <div class="max-w-xl mx-auto text-center m-4">
-      <div class="inline-flex mx-auto rounded-full">
-        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-      </div>
-    </div>
+    <%= render partial: 'layouts/pagy_down_bar' %>
   </div>
 </div>

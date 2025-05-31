@@ -1,7 +1,7 @@
 <div id="notice" aria-live="assertive" class="z-100 pointer-events-none fixed inset-0 flex items-end px-4 py-12 sm:items-start">
     <%= turbo_stream_from "notifications_for_#{current_person.id}" %>
-    
-    <div id=<%= "notification_#{current_person.id}" %> class="flex w-full flex-col items-center space-y-4 sm:items-end">
-        <%= render partial: "layouts/notification", locals: {notification_text:, nid: 000} if notification_text.present?%>
+
+    <div id='<%= "notification_#{current_person.id}" %>' class="flex w-full flex-col items-center space-y-4 sm:items-end">
+        <%= render partial: 'layouts/notification', locals: { notification_text:, nid: 0 } if notification_text.present? %>
     </div>
 </div>

@@ -1,0 +1,14 @@
+<div class="flex justify-end px-8 mt-2">
+    <%= link_to organization_event_path(notification.target.organization, notification.target), class: 'flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100' do %>
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778" />
+        </svg>
+        <span>Показать</span>
+    <% end %>
+
+    <% if current_person.events.include?(notification.target) %>
+        <%= render partial: 'participants/destroy_button', locals: { participant: notification.target.participants.find_by(person: current_person) } %>
+    <% else %>
+        <%= render partial: 'participants/create_button', locals: { event: notification.target } %>
+    <% end %>
+</div>

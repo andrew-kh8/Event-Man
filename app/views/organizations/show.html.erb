@@ -39,8 +39,10 @@
           </div>
 
           <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
-            <%= render partial: 'events/card', collection: @organization.events %>
+            <%= render partial: 'events/card', collection: @events %>
           </div>
+
+          <%= render partial: 'layouts/pagy_down_bar' %>
         </div>
       </div>
     </section>

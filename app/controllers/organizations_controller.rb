@@ -13,6 +13,8 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.includes(:events).find(params[:id])
+
+    @pagy, @events = pagy(@organization.events.order(created_at: :desc), limit: 9)
   end
 
   def edit; end
