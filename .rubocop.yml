@@ -15,12 +15,16 @@ plugins:
   - rubocop-rspec_rails
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-performance
 
 Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/WordArray:
+  EnforcedStyle: brackets
 
 Metrics/MethodLength:
   Max: 50
