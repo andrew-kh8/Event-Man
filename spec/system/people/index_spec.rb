@@ -19,6 +19,18 @@ RSpec.describe 'index people', type: :system do
       .and have_link(href: person_path(third_person.id))
   end
 
+  context 'when there are no people' do
+    let(:message) { 'Пользователи не найдены. Попробуйте перезагрузить страницу или поменять параметры поиска.' }
+
+    before { Person.destroy_all }
+
+    it 'shows message' do
+      visit people_path
+
+      expect(page).to have_content message
+    end
+  end
+
   context 'when find by first name' do
     it 'shows people by first name' do
       visit people_path
@@ -42,6 +54,19 @@ RSpec.describe 'index people', type: :system do
       expect(page).to have_content(third_person.first_name)
         .and have_no_content(first_person.first_name)
         .and have_no_content(second_person.first_name)
+    end
+  end
+
+  context 'when find by invalid value' do
+    let(:message) { 'Пользователи не найдены. Попробуйте перезагрузить страницу или поменять параметры поиска.' }
+
+    it 'shows people by first name' do
+      visit people_path
+
+      find_by_id('person_name').fill_in(with: 'help me pls')
+      click_button('Поиск')
+
+      expect(page).to have_content message
     end
   end
 end

@@ -36,7 +36,7 @@ class ParticipantsController < ApplicationController
     participant.update!(participant_params)
 
     if params[:participants][:visible]
-      render partial: "people/#{participant.visible}_visible_icon", locals: { participant: }
+      render partial: "people/profile/visible_icons/#{participant.visible}_visible_icon", locals: { participant: }
     else
       render partial: 'destroy_button', locals: { participant: }, notice: 'Participant was successfully created.'
     end

@@ -3,9 +3,8 @@ class PeopleController < ApplicationController
   include Authenticator
 
   before_action :authenticate_user
-  before_action :set_person, only: %i[show edit update destroy]
+  before_action :set_person, only: %i[edit update destroy]
 
-  # GET /people
   def index
     people = if params[:friends].present?
                Person.find(params[:friends]).friends
@@ -20,19 +19,11 @@ class PeopleController < ApplicationController
     @pagy, @people = pagy(people)
   end
 
-  # GET /people/1
   def show
     @person = Person.includes(:followers_people, :following_people).find(params.expect(:id))
+    part = visible_events(@person).joins(:event).order('events.start_date')
 
-    part = if person_signed_in? && @person == current_person
-             @person.participants
-           elsif person_signed_in? && @person.friend?(current_person)
-             @person.participants.where(visible: %w[public normal])
-           else
-             @person.participants.where(visible: 'public')
-           end
-
-    @pagy, @participants = pagy(part.joins(:event).order('events.start_date'), limit: 10)
+    @pagy, @participants = pagy(part, limit: 10)
   end
 
   def events
@@ -42,33 +33,35 @@ class PeopleController < ApplicationController
     render partial: 'events'
   end
 
-  # GET /people/1/edit
   def edit; end
 
-  # PATCH/PUT /people/1
   def update
     if @person.update(person_params)
-      redirect_to @person, notice: 'Person was successfully updated.', status: :see_other
+      redirect_to @person, notice: 'Данные профиля успешно обновлены', status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /people/1
   def destroy
     @person.destroy!
-    redirect_to people_path, notice: 'Person was successfully destroyed.', status: :see_other
+    redirect_to people_path, notice: 'Профиль был полностью удален', status: :see_other
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_person
     @person = Person.find(params.expect(:id))
   end
 
-  # Only allow a list of trusted parameters through.
   def person_params
     params.expect(person: %i[first_name last_name avatar birthday description city])
+  end
+
+  def visible_events(person)
+    return person.participants if person == current_person
+    return person.participants.public_or_normal_visible if person.friend?(current_person)
+
+    person.participants.public_visible
   end
 end
