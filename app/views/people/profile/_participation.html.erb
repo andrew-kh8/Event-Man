@@ -1,0 +1,36 @@
+<!-- start::Timeline item -->
+<div class="flex items-center w-full my-2 py-2 hover:bg-gradient-to-r from-white via-gray-200 to-white">
+    <div class="w-1/12 z-10">
+        <% if participation.public_visible? %>
+            <%= render partial: 'people/profile/visible_icons/public_visible_icon', locals: { participant: participation } %>
+        <% elsif participation.private_visible? %>
+            <%= render partial: 'people/profile/visible_icons/private_visible_icon', locals: { participant: participation } %>
+        <% else %>
+            <%= render partial: 'people/profile/visible_icons/normal_visible_icon', locals: { participant: participation } %>
+        <% end %>
+    </div>
+
+    <div class="w-11/12 flex justify-between">
+        <div>
+            <%= link_to participation.event.name, organization_event_path(participation.event.organization, participation.event), data: { turbo: false }, class: 'text-sm' %>
+            <p class="text-xs text-gray-500"><%= participation.event.start_date %></p>
+        </div>
+
+        <div class="flex">
+            <% if person_signed_in? %>
+                <% if current_person == @person %>
+                    <%= form_with scope: :participants, url: participant_path(participation), method: :put, data: { turbo_frame: "visible_#{participation.id}" } do |form| %>
+                        <%= form.select(:visible, [['всем', 'public'], ['друзьям', 'normal'], ['никому', 'private']], { selected: participation.visible }, onchange: 'this.form.requestSubmit();') %>
+                    <% end %>
+                <% end %>
+
+                <% if current_person.events.include?(participation.event) %>
+                    <%= render partial: 'participants/destroy_button', locals: { participant: participation } %>
+                <% else %>
+                    <%= render partial: 'participants/create_button', locals: { event: participation.event } %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
+<!-- end::Timeline item -->

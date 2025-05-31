@@ -1,25 +1,39 @@
+# frozen_string_literal: true
+
 class StarredOrganizationsController < ApplicationController
-  # POST /starred_organizations
+  EMPTY_STR = ''
+
+  before_action :set_organization_id
+
   def create
-    organization_id = params[:organization_id]
+    add_organization_id_to_cookie
 
-    cookies[:starred_organizations] = '' if cookies[:starred_organizations].nil?
-    if cookies[:starred_organizations].exclude?(".#{organization_id}.")
-      cookies[:starred_organizations] += ".#{organization_id}."
-    end
+    StarredOrganization.create(person: current_person, organization_id: @organization_id) if person_signed_in?
 
-    StarredOrganization.create(person: current_person, organization_id:) if person_signed_in?
-
-    render partial: 'starred_organizations/filled_star', locals: { organization: Organization.find(organization_id) }
+    render partial: 'starred_organizations/filled_star', locals: { organization: Organization.find(@organization_id) }
   end
 
-  # DELETE /starred_organizations
   def destroy
-    organization_id = params[:organization_id]
-    cookies[:starred_organizations] = cookies[:starred_organizations].sub(".#{organization_id}.", '')
+    cookies[:starred_organizations] = cookies[:starred_organizations].sub(oid_to_cookie, EMPTY_STR)
 
-    StarredOrganization.destroy_by(person: current_person, organization_id:) if person_signed_in?
+    StarredOrganization.destroy_by(person: current_person, organization_id: @organization_id) if person_signed_in?
 
-    render partial: 'starred_organizations/empty_star', locals: { organization: Organization.find(organization_id) }
+    render partial: 'starred_organizations/empty_star', locals: { organization: Organization.find(@organization_id) }
+  end
+
+  private
+
+  def set_organization_id
+    @organization_id = params[:organization_id]
+  end
+
+  def add_organization_id_to_cookie
+    cookies[:starred_organizations] = EMPTY_STR if cookies[:starred_organizations].nil?
+
+    cookies[:starred_organizations] += oid_to_cookie if cookies[:starred_organizations].exclude?(oid_to_cookie)
+  end
+
+  def oid_to_cookie
+    ".#{@organization_id}."
   end
 end

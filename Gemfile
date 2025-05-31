@@ -70,9 +70,13 @@ group :development, :test do
   gem 'active_record_doctor'
   gem 'factory_bot_rails'
 
+  # linters
+  gem 'erb_lint', require: false
   gem 'reek', require: false
   gem 'rubocop-capybara', require: false
+  gem 'rubocop-erb', require: false
   gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
@@ -88,6 +92,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'database_consistency', require: false
   gem 'web-console'
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do

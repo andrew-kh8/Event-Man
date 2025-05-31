@@ -21,7 +21,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w[jpg jpeg png]
+    ['jpg', 'jpeg', 'png']
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

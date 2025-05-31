@@ -1,44 +1,29 @@
-<tr id="nid_<%= notification.id %>" class="relative transform scale-100 text-xs py-1 border-b-2 border-gray-100 cursor-default <%= "bg-gray-200 bg-opacity-25" if notification.read?%>">
+<tr id="nid_<%= notification.id %>" class="relative transform scale-100 text-xs py-1 border-b-2 border-gray-100 cursor-default <%= 'bg-gray-200 bg-opacity-25' if notification.read? %>">
   <td class="pl-5 pr-3 whitespace-no-wrap">
-      <div class="text-gray-800 text-base"><%= notification.created_at.strftime("%d.%m.%Y")%></div>
-      <div class="text-sm"><%= notification.created_at.strftime("%H:%M")%></div>
+    <div class="text-gray-800 text-base"><%= notification.created_at.strftime('%d.%m.%Y') %></div>
+    <div class="text-sm"><%= notification.created_at.strftime('%H:%M') %></div>
   </td>
 
   <td class="px-2 py-2 whitespace-no-wrap flex justify-between">
     <div>
       <div class="leading-5 text-gray-500 text-base font-medium"><%= author_name(notification) %></div>
-      <div class="leading-5 text-gray-800 text-base mt-2"><%= notification.text%></div>
+      <div class="leading-5 text-gray-800 text-base mt-2"><%= notification.text %></div>
     </div>
 
     <% if !notification.read? %>
-      <% if notification.notice_type == 'invite'%>
-        <div class="flex justify-end px-8 mt-2"> 
-          <%= link_to organization_event_path(notification.target.organization, notification.target), class: "flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
-              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
-              </svg>
-              <span>Показать</span>
-          <%end%>
-        
-          <% if current_person.events.include?(notification.target) %>
-            <%= render partial: "participants/destroy_button", locals: {participant: notification.target.participants.find_by(person: current_person) } %>
-          <%else%>
-            <%= render partial: "participants/create_button", locals: {event: notification.target } %>
-          <%end%>
-        </div>
+      <% if notification.notice_type == 'invite' %>
+        <%= render partial: 'invite', locals: { notification: } %>
 
-      <%elsif notification.notice_type == 'offer'%>
+      <% elsif notification.notice_type == 'offer' %>
 
-        <div class="flex justify-end px-8 mt-2"> 
-          <%= render partial: 'friendship/buttons', locals: {person: notification.target} %>
-        </div>
-      <%end%>
-    <%end%>
+        <%= render partial: 'offer', locals: { notification: } %>
+      <% end %>
+    <% end %>
 
-    <%= button_to person_notification_path(current_person, notification), method: :delete, data: {turbo: true}, onclick:"this.form.requestSubmit(); $('#nid_#{notification.id}').remove();", class: "flex items-center bg-gray-800 hover:bg-gray-950 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100" do%>
+    <%= button_to person_notification_path(current_person, notification), method: :delete, data: { turbo: true }, onclick: "this.form.requestSubmit(); $('#nid_#{notification.id}').remove();", class: 'flex items-center bg-gray-800 hover:bg-gray-950 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100' do %>
       <svg class="w-6 h-6 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
       </svg>
-    <%end%>
+    <% end %>
   </td>
 </tr>
