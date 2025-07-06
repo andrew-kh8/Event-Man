@@ -11,12 +11,12 @@
       <div class="md:p-5 p-1 sm:mt-1 mt-1">
         <div class="mt-5">
           <%= form.label :email, class: 'text-xl md:mb-0 mb-1' %>
-          <%= form.email_field :email, autofocus: true, autocomplete: 'email', class: 'bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600' %>
+          <%= form.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-field' %>
         </div>
 
         <div class="mt-5">
           <%= form.label :password, 'Пароль', class: 'text-xl md:mb-0 mb-1' %>
-          <%= form.password_field :password, autocomplete: 'new-password', class: 'bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600' %>
+          <%= form.password_field :password, autocomplete: 'new-password', class: 'form-field' %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %>
