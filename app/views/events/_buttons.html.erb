@@ -9,6 +9,6 @@
         <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name), {}, { id: 'tom-select-it', class: 'mt-4 input-group' } %>
         <%= form.text_field :event_id, value: event.id, class: 'hidden', readonly: true %>
         <%= form.check_box :accepted, class: 'hidden', readonly: true, checked: false %>
-        <%= form.submit 'Пригласить друга', data: { turbo: true }, class: 'mt-2 flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100' %>
+        <%= form.submit 'Пригласить друга', data: { turbo: true }, class: 'mt-2 blue-btn' %>
     <% end %>
 <% end %>

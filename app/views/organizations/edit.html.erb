@@ -37,9 +37,9 @@
         </div>
 
         <div class="btn mt-2 w-[100%] bg-transparent flex items-center">
-          <%= form.submit 'Обновить', class: 'px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl' %>
-          <%= link_to 'Назад', organization_path(@organization), class: 'px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl' %>
-          <%= link_to 'Удалить', @organization, class: 'px-4 py-2 mx-auto rounded-xl text-center text-xl bg-red-800 text-white hover:text-white hover:bg-red-950 hover:shadow-xl', data: { turbo_confirm: "Вы точно хотите навсегда удалить организацию #{@organization.name} ?", turbo_method: :delete } %>
+          <%= form.submit 'Обновить', class: 'black-btn' %>
+          <%= link_to 'Назад', organization_path(@organization), class: 'black-btn' %>
+          <%= link_to 'Удалить', @organization, class: 'delete-btn', data: { turbo_confirm: "Вы точно хотите навсегда удалить организацию #{@organization.name} ?", turbo_method: :delete } %>
         </div>
       </div>
     </div>
