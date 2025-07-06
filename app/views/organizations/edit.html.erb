@@ -1,10 +1,10 @@
 <% content_for :title, 'Редактирование организации' %>
 
 <div class="h-full w-full">
-  <%= form_with(model: @organization, class: 'flex h-full items-center contents p-5') do |form| %>
+  <%= form_with(model: @organization, class: 'h-full items-center contents p-5') do |form| %>
     <% if @organization.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-        <h2><%= pluralize(@organization.errors.count, 'error') %> prohibited this organization from being saved:</h2>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-2 font-medium rounded-md m-2 mx-auto sm:w-[80%] w-[90%]">
+        <h2><%= pluralize(@organization.errors.count, 'error') %>:</h2>
 
         <ul class="list-disc ml-6">
           <% @organization.errors.each do |error| %>
@@ -18,10 +18,10 @@
       <div class="p-5 mt-5">
         <div class="initials flex flex-row justify-around">
           <%= form.label :name, 'Название', class: 'text-xl md:mb-0 mb-1' %>
-          <%= form.text_field :name, class: ['bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl', { "border-gray-400 focus:outline-blue-600": @organization.errors[:name].none?, "border-red-400 focus:outline-red-600": @organization.errors[:name].any? }] %>
+          <%= form.text_field :name, class: ['bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl', { "border-gray-400 focus:outline-blue-600": @organization.errors[:name].none?, "border-2 border-red-400": @organization.errors[:name].any? }] %>
 
           <%= form.label :activity_field, 'Сфера работы', class: 'text-xl md:mb-0 mb-1' %>
-          <%= form.text_field :activity_field, class: ['bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl', { "border-gray-400 focus:outline-blue-600": @organization.errors[:activity_field].none?, "border-red-400 focus:outline-red-600": @organization.errors[:activity_field].any? }] %>
+          <%= form.text_field :activity_field, class: ['bg-white md:w-[35%] w-1/1 px-4 py-2 rounded-xl', { "border-gray-400 focus:outline-blue-600": @organization.errors[:activity_field].none?, "border-2 border-red-400": @organization.errors[:activity_field].any? }] %>
         </div>
 
         <div class="md:p-5 p-1 sm:mt-1 mt-1">
