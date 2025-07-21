@@ -74,18 +74,19 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: event_man_production
-    username: event_man
-    password: <%= ENV["EVENT_MAN_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: event_man_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: event_man_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: event_man_production_cable
-    migrations_paths: db/cable_migrate
+    database: <%= ENV["DB_NAME"] %>
+    username: <%= ENV["DB_USERNAME"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    url: <%= ENV["DB_URL"] %>
+  # cache:
+  #   <<: *primary_production
+  #   database: event_man_production_cache
+  #   migrations_paths: db/cache_migrate
+  # queue:
+  #   <<: *primary_production
+  #   database: event_man_production_queue
+  #   migrations_paths: db/queue_migrate
+  # cable:
+  #   <<: *primary_production
+  #   database: event_man_production_cable
+  #   migrations_paths: db/cable_migrate

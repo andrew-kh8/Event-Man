@@ -11,8 +11,10 @@ COPY . .
 RUN apk update && \
     apk upgrade && \
     apk add alpine-sdk ruby-dev libpq-dev yaml-dev && \
-    bundle install --without development test
+    bundle config set without 'development test' && \
+    bundle install
 
 EXPOSE 3000
 
-CMD ["bin/rails", "server"]
+ENTRYPOINT ["sh", "-c"]
+CMD ["bundle exec rails db:migrate && bundle exec rails s"]
