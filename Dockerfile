@@ -14,6 +14,8 @@ RUN apk update && \
     bundle config set without 'development test' && \
     bundle install
 
+RUN bundle exec rails assets:precompile
+
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
