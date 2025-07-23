@@ -34,7 +34,7 @@ copy Procfile.dev from Procfile.dev.sample and configure it. Then run
 5) `bundler-audit` - версии гемов
 6) `active_record_doctor` и `database_consistency` - консистентность БД
 
-
+чтобы открыть доступ к локалхосту можно юзать [localtunnel](https://theboroer.github.io/localtunnel-www/)
 
 ## Tests
 

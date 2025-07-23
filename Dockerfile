@@ -2,17 +2,25 @@ FROM ruby:3.3.8-alpine
 
 WORKDIR /event_man
 
+# basic
 ENV RAILS_ENV="production" \
     GEM_HOME="/.gem" \
-    BUNDLE_PATH="/.gem"
-
-COPY . .
+    BUNDLE_PATH="/.gem" \
+    RAILS_SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE \
+    RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
 RUN apk update && \
     apk upgrade && \
-    apk add alpine-sdk ruby-dev libpq-dev yaml-dev && \
-    bundle config set without 'development test' && \
+    apk add alpine-sdk ruby-dev libpq-dev yaml-dev
+
+# gems
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle config set without 'development test' && \
     bundle install
+
+# project
+COPY . .
 
 RUN bundle exec rails assets:precompile
 
