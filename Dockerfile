@@ -6,6 +6,7 @@ WORKDIR /event_man
 ENV RAILS_ENV="production" \
     GEM_HOME="/.gem" \
     BUNDLE_PATH="/.gem" \
+    ADMIN_EMAIL="admin@email.email" \
     RAILS_SECRET_KEY_BASE=$RAILS_SECRET_KEY_BASE \
     RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 

@@ -13,7 +13,7 @@ services:
       start_period: 30s
     volumes:
       - db-data:/var/lib.postgresql/data
-  
+
   webapp:
     image: event_man
     build: .
@@ -26,7 +26,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_URL: ${DB_URL}
       RAILS_SECRET_KEY_BASE: ${RAILS_SECRET_KEY_BASE}
-      SECRET_KEY_BASE: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     ports:
       - 3000:3000
 
