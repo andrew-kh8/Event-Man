@@ -13,6 +13,9 @@ RUN apk update && \
     apk upgrade && \
     apk add alpine-sdk ruby-dev libpq-dev yaml-dev
 
+# for avo admin panel
+RUN apk add nodejs yarn
+
 # gems
 COPY Gemfile Gemfile.lock ./
 
