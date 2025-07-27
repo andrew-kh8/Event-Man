@@ -159,3 +159,28 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+  
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose-plugin
+
+      - name: docker compose
+        run: docker compose up
+
+      - name: Run health check
+        run: |
+          docker compose exec webapp curl -I http://localhost:3000/up || exit 1
+          docker compose exec webapp bundle exec rails runner "puts ActiveRecord::Base.connection.active?" | grep true || exit 1
+      
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v
