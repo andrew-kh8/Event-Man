@@ -1,59 +1,26 @@
-<% content_for :title,"Организации" %>
+<% content_for :title, 'Организации' %>
 
 <div class="w-full">
   <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
 
     <div class="relative mx-auto h-full pb-20 md:pb-10 sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
-
       <div class="mx-auto max-w-7xl relative">
         <div class="max-w-xl mx-auto text-center">
           <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
             <p class="text-4xl font-semibold tracking-widest text-g uppercase">Организации</p>
           </div>
         </div>
-        
-        <div class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
-          <%= form_with method: :get, url: organizations_path, class:"mt-4 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row" do |form|%>
-            <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                <%= form.search_field :organization_name, value: params[:organization_name], placeholder: "Введите название", class: "w-full focus:outline-none text-gray-700"%>
-            </div>
 
-            <%= form.checkbox :favorite, {class: "peer hidden", checked: params[:favorite] == 'true'}, 'true', 'false' %>
-            <%= form.label :favorite, "Избранные", class: "select-none cursor-pointer rounded-lg border-2 border-gray-400 px-4 py-2 ml-4 font-bold text-gray-600 transition-colors duration-200 ease-in-out peer-checked:bg-indigo-200 peer-checked:text-indigo-900 peer-checked:border-indigo-200" %>
-              
-            <button class="border-2 border-gray-500 px-4 py-2 ml-4 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                Поиск
-            </button>
-          <%end%>
-        </div>   
+        <div class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+          <%= render partial: 'search_bar' %>
+        </div>
 
         <div class="grid grid-cols-1 gap-2 mt-12 sm:grid-cols-3 lg:mt-20">
-          <% @organizations.each do |organization| %>
-
-            <%= link_to organization_path(organization), class: "bg-white hover:bg-blue-500 hover:shadow-xl m-2 p-4 relative z-40 group" do %>
-
-              <div class="py-2 px-9 relative">
-
-                <%= image_tag organization.logo_url %>
-
-                <h3 class="mt-8 text-lg font-semibold text-black group-hover:text-white">
-                  <%= organization.name %>
-                </h3>
-
-                <p class="mt-4 text-base text-gray-600 group-hover:text-white">
-                  <%= truncate(organization.description, length: 120) %>
-                </p>
-              </div>
-            <%end%>
-          <%end%>
+          <%= render partial: 'card', collection: @organizations %>
         </div>
       </div>
     </div>
 
-    <div class="max-w-xl mx-auto text-center m-4">
-      <div class="inline-flex mx-auto rounded-full">
-        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-      </div>
-    </div>
+    <%= render partial: 'layouts/pagy_down_bar' %>
   </div>
 </div>

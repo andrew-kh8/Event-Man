@@ -1,0 +1,25 @@
+<%- if controller_name != 'sessions' %>
+  <%= link_to 'Вход', new_session_path(resource_name), class: 'border-2 border-gray-500 px-4 py-2 my-8 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to 'Регистрация', new_registration_path(resource_name), class: 'border-2 border-gray-500 px-4 py-2 my-8 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to 'Восстановление пароля', new_password_path(resource_name), class: 'border-2 border-gray-500 px-4 py-2 my-8 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to 'Не получали инструкции по подтверждению?', new_confirmation_path(resource_name), class: 'border-2 border-gray-500 px-4 py-2 my-8 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to 'Не получали инструкции разблокировки?', new_unlock_path(resource_name), class: 'border-2 border-gray-500 px-4 py-2 my-8 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: 'white-btn' %>
+  <% end %>
+<% end %>

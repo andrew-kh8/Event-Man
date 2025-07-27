@@ -1,0 +1,14 @@
+<% if current_person.events.include?(event) %>
+    <%= render partial: 'participants/destroy_button', locals: { participant: participant } %>
+<% else %>
+    <%= render partial: 'participants/create_button', locals: { event: event } %>
+<% end %>
+
+<% if current_person.friends.present? %>
+    <%= form_with scope: :participants, url: participants_path, class: 'grid mx-4' do |form| %>
+        <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name), {}, { id: 'tom-select-it', class: 'mt-4 input-group' } %>
+        <%= form.text_field :event_id, value: event.id, class: 'hidden', readonly: true %>
+        <%= form.check_box :accepted, class: 'hidden', readonly: true, checked: false %>
+        <%= form.submit 'Пригласить друга', data: { turbo: true }, class: 'mt-2 blue-btn' %>
+    <% end %>
+<% end %>

@@ -1,8 +1,7 @@
-<% content_for :title, "Нотификации" %>
+<% content_for :title, 'Нотификации' %>
 
 <div class="w-full">
   <div class="py-8 sm:py-16 block lg:py-24 relative bg-opacity-50 z-40">
-
     <div class="relative mx-auto h-full pb-20 md:pb-10 sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
 
       <div class="mx-auto max-w-7xl relative">
@@ -19,19 +18,14 @@
                 <%= render partial: 'notification', collection: @notifications %>
               </tbody>
             </table>
-        <%else%>
+        <% else %>
           <div class="max-w-xl mx-auto text-center text-base mt-8">
               Нотификаций пока нет
           </div>
-        <%end%>
+        <% end %>
       </div>
     </div>
 
-    <div class="max-w-xl mx-auto text-center m-4">
-      <div class="inline-flex mx-auto rounded-full">
-        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-      </div>
-    </div>
+    <%= render partial: 'layouts/pagy_down_bar' %>
   </div>
 </div>
-

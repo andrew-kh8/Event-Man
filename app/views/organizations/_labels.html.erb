@@ -1,0 +1,15 @@
+<% if !organization.accredited? %>
+    <div id="not_accredited" class="bg-red-700 rounded-full h-5 w-5" title="Организация не подтверждена">
+    <svg class="text-gray-100 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
+    </svg>
+    </div>
+<% end %>
+
+<% if !organization_signed_in? %>
+    <% if cookies[:starred_organizations]&.include?(".#{organization.id}.") || (person_signed_in? && current_person.starred?(organization.id)) %>
+        <%= render partial: 'starred_organizations/filled_star', locals: { organization: } %>
+    <% else %>
+        <%= render partial: 'starred_organizations/empty_star', locals: { organization: } %>
+    <% end %>
+<% end %>

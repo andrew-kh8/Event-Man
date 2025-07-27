@@ -8,7 +8,8 @@ class Person < ApplicationRecord
 
   has_many :followers, class_name: 'Friendship', foreign_key: 'author_id', inverse_of: :author, dependent: :delete_all
   has_many :followers_people, through: :followers, source: :author
-  has_many :following, class_name: 'Friendship', foreign_key: 'follower_id', inverse_of: :follower, dependent: :delete_all
+  has_many :following, class_name: 'Friendship', foreign_key: 'follower_id',
+                       inverse_of: :follower, dependent: :delete_all
   has_many :following_people, through: :following, source: :follower
   has_many :participants, dependent: :delete_all
   has_many :events, through: :participants

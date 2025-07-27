@@ -1,0 +1,11 @@
+<%= form_with method: :get, url: people_path, class: 'mt-4 flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row' do |form| %>
+    <div class="w-1/2 px-4 py-2 mt-2 font-semibold bg-gray-300 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+        <%= form.search_field :person_name, value: params[:person_name], placeholder: 'Введите имя', class: 'w-full focus:outline-none text-gray-700' %>
+    </div>
+
+    <%= form.text_field :friends, value: params[:friends], hidden: true %>
+
+    <button class="white-btn md:ml-4">
+        Поиск
+    </button>
+<% end %>

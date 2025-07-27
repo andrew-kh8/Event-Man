@@ -1,58 +1,58 @@
 <div class="h-full w-full">
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "flex h-full items-center contents p-5") do |form| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'flex h-full items-center contents p-5') do |form| %>
     <div class="bg-stone-100 sm:w-[80%] w-[90%] mx-auto p-6">
-      <%= render "devise/shared/error_messages", resource: resource %>
-      
+      <%= render 'devise/shared/error_messages', resource: resource %>
+
       <div class="inline-flex px-4 py-1.5 mx-auto rounded-full">
         <p class="text-4xl font-semibold tracking-widest text-g uppercase">Регистрация пользователя</p>
       </div>
-      
+
       <div class="md:p-5 p-1 sm:mt-1 mt-1">
         <div class="mt-5">
-          <%= form.label :first_name, "Имя", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.text_field :first_name, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :first_name, 'Имя', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.text_field :first_name, class: 'form-field' %>
         </div>
 
         <div class="mt-5">
-          <%= form.label :email, class: "text-xl md:mb-0 mb-1" %>
-          <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :email, class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-field' %>
         </div>
 
         <div class="mt-5">
-          <%= form.label :last_name, "Фамилия", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.text_field :last_name, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :last_name, 'Фамилия', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.text_field :last_name, class: 'form-field' %>
         </div>
 
         <div class="mt-5">
-          <%= form.label :birthday, "День рождения", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.date_field :birthday, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :birthday, 'День рождения', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.date_field :birthday, class: 'form-field' %>
         </div>
 
         <div class="mt-5">
-          <%= form.label :avatar, "Аватар", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.file_field :avatar, class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :avatar, 'Аватар', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.file_field :avatar, class: 'form-field' %>
         </div>
 
         <div class="mt-5">
-          <%= form.label :password, "Пароль", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.password_field :password, autocomplete: "new-password", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :password, 'Пароль', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.password_field :password, autocomplete: 'new-password', class: 'form-field' %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %>
-        </div> 
+        </div>
 
         <div class="mt-5">
-          <%= form.label :password_confirmation, "Подтвердите пароль", class: "text-xl md:mb-0 mb-1" %>
-          <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "bg-white md:w-[35%] w-1/1 px-4 py-2 md:mb-0 mb-3 rounded-xl border-gray-400 focus:outline-blue-600" %>
+          <%= form.label :password_confirmation, 'Подтвердите пароль', class: 'text-xl md:mb-0 mb-1' %>
+          <%= form.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-field' %>
         </div>
       </div>
 
       <div class="actions mb-4">
-        <%= form.submit "Зарегистрироваться", class: "px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:shadow-xl" %>
+        <%= form.submit 'Зарегистрироваться', class: 'black-btn' %>
       </div>
 
-      <%= render "people/shared/links" %>
+      <%= render 'devise/shared/links' %>
     </div>
   <% end %>
 </div>

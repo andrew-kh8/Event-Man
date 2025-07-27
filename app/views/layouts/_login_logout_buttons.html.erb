@@ -1,0 +1,7 @@
+<% if organization_signed_in? %>
+    <%= link_to 'Моя организация', current_organization, class: 'menu-btn bg-transparent hover:bg-gray-200 focus:bg-gray-200' %>
+<% elsif person_signed_in? %>
+    <%= link_to 'Мой профиль', current_person, class: 'menu-btn bg-transparent hover:bg-gray-200 focus:bg-gray-200' %>
+<% else %>
+    <%= button_to 'Войти', new_person_session_path, class: 'menu-btn bg-indigo-200' %>
+<% end %>

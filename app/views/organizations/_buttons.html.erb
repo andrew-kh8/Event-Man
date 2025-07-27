@@ -1,0 +1,14 @@
+<% if current_organization.accredited? %>
+    <%= link_to 'Добавить мероприятие', new_organization_event_path(organization),
+    class: 'white-btn' %>
+<% else %>
+    <%= link_to 'Пройти аккредитацию', organization_accreditation_path(organization),
+    class: 'border-2 border-red-400 px-4 py-2 font-semibold bg-red-200 rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>
+<% end %>
+
+<%= link_to 'Редактировать', edit_organization_path(organization),
+    class: 'white-btn' %>
+
+<%= button_to 'Выйти', destroy_organization_session_path,
+    method: :delete,
+    class: 'mt-4 border-2 border-gray-500 px-4 py-2 font-semibold bg-gray-300 rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline' %>

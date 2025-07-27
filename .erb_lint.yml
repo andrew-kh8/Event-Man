@@ -1,0 +1,20 @@
+---
+EnableDefaultLinters: true
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+linters:
+  ErbSafety:
+    enabled: false
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from: .rubocop.yml
+      plugins:
+        - rubocop-erb
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Layout/InitialIndentation:
+        Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false

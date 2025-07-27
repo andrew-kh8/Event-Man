@@ -16,9 +16,9 @@
               <div class="px-4 py-1.5 mx-auto rounded-full">
                 <p class="text-4xl font-semibold tracking-widest text-g"><%= @event.name %></p>
                 <p class="text-base leading-relaxed text-gray-600 group-hover:text-white">
-                  Участников: <%= @event.participants.size %>
+                  Участников: <%= @event.participants.accepted.size %>
                 </p>
-                <%= link_to @organization.name, organization_path(@organization), class:"text-base leading-relaxed group-hover:text-white"%>
+                <%= link_to @organization.name, organization_path(@organization), class: 'text-base leading-relaxed group-hover:text-white' %>
               </div>
 
               <p class="mt-4 text-base leading-relaxed text-gray-600 group-hover:text-white">
@@ -32,26 +32,12 @@
               </p>
 
               <% if organization_signed_in? && current_organization == @organization %>
-                <%= link_to "Редактировать", edit_organization_event_path(@organization, @event), class:"border-2 border-gray-500 px-4 py-2 font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" %>
-              <%end%>
+                <%= link_to 'Редактировать', edit_organization_event_path(@organization, @event), class: 'white-btn' %>
+              <% end %>
 
               <% if person_signed_in? %>
-
-                <% if current_person.events.include?(@event) %>
-                  <%= render partial: "participants/destroy_button", locals: {participant: @participant} %>
-                <%else%>
-                  <%= render partial: "participants/create_button", locals: {event: @event } %>
-                <%end%>
-
-                <% if current_person.friends.present? %>
-                  <%= form_with scope: :participants, url: participants_path, class: "grid mx-4" do |form|%>
-                    <%= form.select :person_id, options_from_collection_for_select(current_person.friends, :id, :full_name), {}, {id:'tom-select-it', class:"mt-4 input-group"} %>
-                    <%= form.text_field :event_id, value: @event.id, class: "hidden", readonly: true%>
-                    <%= form.check_box :accepted, class: "hidden", readonly: true, checked: false%>
-                    <%= form.submit "Пригласить друга", data: {turbo: true}, class: "mt-2 flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100"%>
-                  <%end%>
-                <%end%>
-              <%end%>
+                <%= render partial: 'buttons', locals: { event: @event, participant: @participant } %>
+              <% end %>
             </div>
 
             <div>
@@ -60,11 +46,11 @@
 
             <% if @event.tag_list.present? %>
               <div class="absolute top-0 right-2 z-10 mt-3 ml-3">
-                <%= render partial: "events/tag", collection: @event.tag_list %>
+                <%= render partial: 'events/tag', collection: @event.tag_list %>
               </div>
-            <%end%>
+            <% end %>
           </div>
-          
+
           <div class="max-w-xl mx-auto my-14 text-center">
           </div>
         </div>
