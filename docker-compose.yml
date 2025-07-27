@@ -16,17 +16,19 @@ services:
 
   webapp:
     image: event_man
-    build: .
-    depends_on:
-      database:
-        condition: service_healthy
+    build:
+      context: .
+      args:
+        RAILS_SECRET_KEY_BASE: ${RAILS_SECRET_KEY_BASE}
+        RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     environment:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_USERNAME: ${DB_USERNAME}
       DB_NAME: ${DB_NAME}
       DB_URL: ${DB_URL}
-      RAILS_SECRET_KEY_BASE: ${RAILS_SECRET_KEY_BASE}
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    depends_on:
+      database:
+        condition: service_healthy
     ports:
       - 3000:3000
 
